@@ -123,7 +123,7 @@ export function AccountsView() {
         description={
           <>
             Total saldo terhitung:{' '}
-            <strong className="font-mono text-[#202238]">
+            <strong className="font-mono text-text-primary">
               {formatIDR(totalBalance, { hidden })}
             </strong>{' '}
             · Data tersimpan lokal & aman tanpa kredensial bank.
@@ -134,14 +134,14 @@ export function AccountsView() {
             <button
               type="button"
               onClick={() => setShowArchived((value) => !value)}
-              className="min-h-[44px] whitespace-nowrap rounded-xl border border-[#E8E9F1] bg-white px-3.5 py-2 text-xs font-medium text-[#202238] hover:bg-[#F6F7FB] sm:text-sm"
+              className="min-h-[44px] whitespace-nowrap rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text-primary hover:bg-surface-muted sm:text-sm"
             >
               {showArchived ? 'Lihat Akun Aktif' : 'Lihat Arsip'}
             </button>
             <button
               type="button"
               onClick={openCreateModal}
-              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl bg-[#6655D9] px-4 py-2 text-xs font-medium text-white hover:bg-[#4938B5] sm:text-sm"
+              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-xs font-medium text-white hover:bg-primary-dark sm:text-sm"
             >
               <Plus className="h-4 w-4" />
               Tambah Akun
@@ -172,19 +172,19 @@ export function AccountsView() {
             return (
               <div
                 key={acc.id}
-                className="bg-white border border-[#E8E9F1] rounded-2xl p-5 flex flex-col justify-between gap-4"
+                className="bg-surface border border-border rounded-2xl p-5 flex flex-col justify-between gap-4"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-[#F0EDFF] text-[#6655D9] flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-primary-soft text-primary flex items-center justify-center shrink-0">
                         {renderIcon(acc.type)}
                       </div>
                       <div className="min-w-0">
-                        <h2 className="text-base font-semibold text-[#202238] truncate">
+                        <h2 className="text-base font-semibold text-text-primary truncate">
                           {acc.name}
                         </h2>
-                        <p className="text-xs text-[#74778B] truncate">
+                        <p className="text-xs text-text-secondary truncate">
                           {getAccountTypeLabel(acc.type)}
                           {acc.institution ? ` · ${acc.institution}` : ''}
                         </p>
@@ -193,7 +193,7 @@ export function AccountsView() {
                     <button
                       type="button"
                       onClick={() => openEditModal(acc)}
-                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB] hover:text-[#202238]"
+                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted hover:text-text-primary"
                       aria-label={`Ubah akun ${acc.name}`}
                     >
                       <Edit3 className="w-4 h-4" />
@@ -201,24 +201,24 @@ export function AccountsView() {
                   </div>
 
                   <div className="mt-4">
-                    <p className="text-xs text-[#74778B]">Saldo Saat Ini</p>
+                    <p className="text-xs text-text-secondary">Saldo Saat Ini</p>
                     <p
                       className={`mt-1 text-2xl font-mono font-bold tabular-nums ${
-                        isNegative ? 'text-[#E65378]' : 'text-[#202238]'
+                        isNegative ? 'text-expense' : 'text-text-primary'
                       }`}
                     >
                       {formatIDR(acc.currentBalance, { hidden })}
                     </p>
                     {isNegative && (
-                      <div className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-[#8A5A10] bg-[#FFF8EB] px-2.5 py-1 rounded-lg border border-[#E5A13A]/35">
-                        <AlertTriangle className="w-3.5 h-3.5 text-[#E5A13A] shrink-0" />
+                      <div className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-warning-strong bg-warning-soft px-2.5 py-1 rounded-lg border border-warning/35">
+                        <AlertTriangle className="w-3.5 h-3.5 text-warning shrink-0" />
                         Saldo Negatif — Periksa mutasi atau rekonsiliasi
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-[#E8E9F1] flex items-center justify-between gap-2 text-xs text-[#74778B]">
+                <div className="pt-3 border-t border-border flex items-center justify-between gap-2 text-xs text-text-secondary">
                   <span>
                     {acc.transactionCount} transaksi ·{' '}
                     {acc.includeInTotal ? 'Masuk total saldo' : 'Dikecualikan'}
@@ -228,7 +228,7 @@ export function AccountsView() {
                       <button
                         type="button"
                         onClick={() => openReconcileModal(acc)}
-                        className="min-h-[40px] px-2.5 py-1 rounded-lg border border-[#E8E9F1] text-[#202238] hover:bg-[#F6F7FB] font-medium inline-flex items-center gap-1"
+                        className="min-h-[40px] px-2.5 py-1 rounded-lg border border-border text-text-primary hover:bg-surface-muted font-medium inline-flex items-center gap-1"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                         Rekonsiliasi
@@ -237,7 +237,7 @@ export function AccountsView() {
                     <button
                       type="button"
                       onClick={() => toggleArchiveAccount(acc.id)}
-                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg border border-[#E8E9F1] text-[#74778B] hover:text-[#202238] hover:bg-[#F6F7FB]"
+                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg border border-border text-text-secondary hover:text-text-primary hover:bg-surface-muted"
                       title={acc.isArchived ? 'Aktifkan kembali' : 'Arsipkan akun'}
                       aria-label={acc.isArchived ? 'Aktifkan kembali' : 'Arsipkan akun'}
                     >
@@ -263,13 +263,13 @@ export function AccountsView() {
       >
         <div className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 id="account-form-title" className="text-lg font-semibold text-[#202238]">
+              <h2 id="account-form-title" className="text-lg font-semibold text-text-primary">
                 {editingAcc ? 'Ubah Akun Keuangan' : 'Tambah Akun Manual'}
               </h2>
               <button
                 type="button"
                 onClick={() => setFormOpen(false)}
-                className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB]"
+                className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted"
                 aria-label="Tutup modal akun"
               >
                 <X className="w-5 h-5" />
@@ -278,7 +278,7 @@ export function AccountsView() {
 
             <form onSubmit={handleSaveAccount} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#74778B] mb-1">
+                <label className="block text-xs font-medium text-text-secondary mb-1">
                   Nama Akun *
                 </label>
                 <input
@@ -286,20 +286,20 @@ export function AccountsView() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Contoh: BCA Utama, GoPay, Dompet Tunai"
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-sm"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-[#74778B] mb-1">
+                  <label className="block text-xs font-medium text-text-secondary mb-1">
                     Jenis Akun *
                   </label>
                   <select
                     value={type}
                     onChange={(e) => setType(e.target.value as AccountType)}
-                    className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm bg-white"
+                    className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm bg-surface"
                   >
                     <option value="bank">Rekening Bank</option>
                     <option value="ewallet">E-Wallet</option>
@@ -310,7 +310,7 @@ export function AccountsView() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#74778B] mb-1">
+                  <label className="block text-xs font-medium text-text-secondary mb-1">
                     Institusi / Penyedia
                   </label>
                   <input
@@ -318,29 +318,29 @@ export function AccountsView() {
                     value={institution}
                     onChange={(e) => setInstitution(e.target.value)}
                     placeholder="Contoh: BCA, Mandiri, DANA"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#74778B] mb-1">
+                <label className="block text-xs font-medium text-text-secondary mb-1">
                   Saldo Awal (IDR)
                 </label>
                 <input
                   type="number"
                   value={openingBalanceStr}
                   onChange={(e) => setOpeningBalanceStr(e.target.value)}
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] font-mono tabular-nums text-sm"
+                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border font-mono tabular-nums text-sm"
                 />
               </div>
 
-              <label className="flex items-center gap-2.5 text-sm text-[#202238] cursor-pointer">
+              <label className="flex items-center gap-2.5 text-sm text-text-primary cursor-pointer">
                 <input
                   type="checkbox"
                   checked={includeInTotal}
                   onChange={(e) => setIncludeInTotal(e.target.checked)}
-                  className="w-4 h-4 accent-[#6655D9]"
+                  className="w-4 h-4 accent-primary"
                 />
                 Sertakan dalam perhitungan Total Saldo Dashboard
               </label>
@@ -349,13 +349,13 @@ export function AccountsView() {
                 <button
                   type="button"
                   onClick={() => setFormOpen(false)}
-                  className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium"
+                  className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium"
+                  className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium"
                 >
                   Simpan Akun
                 </button>
@@ -372,13 +372,13 @@ export function AccountsView() {
       >
         <div className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 id="account-reconcile-title" className="text-lg font-semibold text-[#202238]">
+              <h2 id="account-reconcile-title" className="text-lg font-semibold text-text-primary">
                 Rekonsiliasi: {reconcileTarget?.name}
               </h2>
               <button
                 type="button"
                 onClick={() => setReconcileTarget(null)}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB]"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted"
                 aria-label="Tutup rekonsiliasi"
               >
                 <X className="w-5 h-5" />
@@ -386,30 +386,30 @@ export function AccountsView() {
             </div>
 
             <form onSubmit={handleConfirmReconcile} className="space-y-4">
-              <div className="p-3.5 rounded-xl bg-[#F6F7FB] border border-[#E8E9F1] text-xs space-y-1">
+              <div className="p-3.5 rounded-xl bg-surface-muted border border-border text-xs space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-[#74778B]">Saldo Tercatat di Finora</span>
-                  <span className="font-mono font-semibold text-[#202238]">
+                  <span className="text-text-secondary">Saldo Tercatat di Finora</span>
+                  <span className="font-mono font-semibold text-text-primary">
                     {formatIDR(reconcileTarget?.currentBalance ?? 0)}
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#74778B] mb-1">
+                <label className="block text-xs font-medium text-text-secondary mb-1">
                   Saldo Aktual Sebenarnya (IDR)
                 </label>
                 <input
                   type="number"
                   value={actualBalanceStr}
                   onChange={(e) => setActualBalanceStr(e.target.value)}
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] font-mono tabular-nums text-sm"
+                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border font-mono tabular-nums text-sm"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#74778B] mb-1">
+                <label className="block text-xs font-medium text-text-secondary mb-1">
                   Alasan Penyesuaian *
                 </label>
                 <input
@@ -417,7 +417,7 @@ export function AccountsView() {
                   value={reconcileReason}
                   onChange={(e) => setReconcileReason(e.target.value)}
                   placeholder="Contoh: Selisih biaya admin bank atau uang tunai tercecer"
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-sm"
                   required
                 />
               </div>
@@ -426,13 +426,13 @@ export function AccountsView() {
                 <button
                   type="button"
                   onClick={() => setReconcileTarget(null)}
-                  className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium"
+                  className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium"
+                  className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium"
                 >
                   Catat Penyesuaian
                 </button>

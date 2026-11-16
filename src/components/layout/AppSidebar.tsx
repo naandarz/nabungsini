@@ -21,22 +21,22 @@ export function AppSidebar({
 
   return (
     <aside
-      className={`sticky top-0 hidden h-screen shrink-0 flex-col border-r border-[#E8E9F1] bg-white transition-[width] duration-150 lg:flex ${
+      className={`sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-surface transition-[width] duration-150 lg:flex ${
         collapsed ? 'w-[76px]' : 'w-[248px]'
       }`}
     >
-      <div className="flex h-16 items-center justify-between border-b border-[#E8E9F1] px-4">
+      <div className="flex h-16 items-center justify-between border-b border-border px-4">
         <button
           type="button"
           onClick={() => onNavigate('dashboard')}
           className="flex min-w-0 items-center gap-2.5 rounded-lg text-left"
           aria-label="Finora — kembali ke Beranda"
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#6655D9] text-base font-bold text-white">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-base font-bold text-white">
             F
           </span>
           {!collapsed && (
-            <span className="whitespace-nowrap text-lg font-bold tracking-tight text-[#202238]">
+            <span className="whitespace-nowrap text-lg font-bold tracking-tight text-text-primary">
               Finora
             </span>
           )}
@@ -45,7 +45,7 @@ export function AppSidebar({
         <button
           type="button"
           onClick={onToggleCollapse}
-          className="flex min-h-[36px] min-w-[36px] items-center justify-center rounded-lg text-[#74778B] transition-colors hover:bg-[#F6F7FB] hover:text-[#202238]"
+          className="flex min-h-[36px] min-w-[36px] items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-surface-muted hover:text-text-primary"
           aria-label={collapsed ? 'Perluas sidebar' : 'Ciutkan sidebar'}
           aria-expanded={!collapsed}
         >
@@ -61,7 +61,7 @@ export function AppSidebar({
         {NAV_GROUPS.map((group) => (
           <div key={group.label} className="mb-3 last:mb-0">
             {!collapsed && (
-              <p className="px-3 pb-1.5 pt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#8B8EA3]">
+              <p className="px-3 pb-1.5 pt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-neutral">
                 {group.label}
               </p>
             )}
@@ -79,12 +79,12 @@ export function AppSidebar({
                     aria-current={isActive ? 'page' : undefined}
                     className={`flex min-h-[44px] w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                       isActive
-                        ? 'bg-[#F0EDFF] text-[#4938B5]'
-                        : 'text-[#74778B] hover:bg-[#F6F7FB] hover:text-[#202238]'
+                        ? 'bg-primary-soft text-primary-dark'
+                        : 'text-text-secondary hover:bg-surface-muted hover:text-text-primary'
                     } ${collapsed ? 'justify-center px-0' : ''}`}
                   >
                     <Icon
-                      className={`h-5 w-5 shrink-0 ${isActive ? 'text-[#6655D9]' : ''}`}
+                      className={`h-5 w-5 shrink-0 ${isActive ? 'text-primary' : ''}`}
                     />
                     {!collapsed && <span className="truncate">{item.label}</span>}
                   </button>
@@ -95,7 +95,7 @@ export function AppSidebar({
         ))}
       </nav>
 
-      <div className="border-t border-[#E8E9F1] p-3">
+      <div className="border-t border-border p-3">
         <button
           type="button"
           onClick={() => onNavigate('settings')}
@@ -103,13 +103,13 @@ export function AppSidebar({
           aria-current={settingsActive ? 'page' : undefined}
           className={`flex min-h-[44px] w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors ${
             settingsActive
-              ? 'bg-[#F0EDFF]'
-              : 'hover:bg-[#F6F7FB]'
+              ? 'bg-primary-soft'
+              : 'hover:bg-surface-muted'
           } ${collapsed ? 'justify-center px-0' : ''}`}
         >
           <span
             className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
-              settingsActive ? 'bg-[#6655D9] text-white' : 'bg-[#F0EDFF] text-[#4938B5]'
+              settingsActive ? 'bg-primary text-white' : 'bg-primary-soft text-primary-dark'
             }`}
           >
             {initials}
@@ -117,14 +117,14 @@ export function AppSidebar({
           {!collapsed && (
             <>
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-xs font-semibold text-[#202238]">
+                <span className="block truncate text-xs font-semibold text-text-primary">
                   {displayName}
                 </span>
-                <span className="block truncate text-[11px] text-[#74778B]">
+                <span className="block truncate text-[11px] text-text-secondary">
                   Pengaturan & data
                 </span>
               </span>
-              <Settings className="h-4 w-4 shrink-0 text-[#74778B]" />
+              <Settings className="h-4 w-4 shrink-0 text-text-secondary" />
             </>
           )}
         </button>

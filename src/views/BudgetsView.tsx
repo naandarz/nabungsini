@@ -65,20 +65,20 @@ export function BudgetsView() {
               value={monthKey}
               onChange={(e) => setMonthKey(e.target.value)}
               aria-label="Pilih bulan anggaran"
-              className="min-h-[44px] px-3 py-2 rounded-xl border border-[#E8E9F1] bg-white text-xs sm:text-sm font-medium text-[#202238]"
+              className="min-h-[44px] px-3 py-2 rounded-xl border border-border bg-surface text-xs sm:text-sm font-medium text-text-primary"
             />
             <button
               type="button"
               onClick={() => copyBudgetsFromMonth(prevMonthKey, monthKey)}
-              className="min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] bg-white hover:bg-[#F6F7FB] text-xs sm:text-sm font-medium text-[#202238] inline-flex items-center gap-1.5 whitespace-nowrap"
+              className="min-h-[44px] px-3.5 py-2 rounded-xl border border-border bg-surface hover:bg-surface-muted text-xs sm:text-sm font-medium text-text-primary inline-flex items-center gap-1.5 whitespace-nowrap"
             >
-              <Copy className="w-4 h-4 text-[#74778B]" />
+              <Copy className="w-4 h-4 text-text-secondary" />
               Salin Bulan Lalu
             </button>
             <button
               type="button"
               onClick={() => openModal()}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-xs sm:text-sm font-medium inline-flex items-center gap-1.5 whitespace-nowrap"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-medium inline-flex items-center gap-1.5 whitespace-nowrap"
             >
               <Plus className="w-4 h-4" />
               Atur Anggaran
@@ -90,23 +90,23 @@ export function BudgetsView() {
       {/* Totals Banner */}
       {progressList.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-            <p className="text-xs text-[#74778B]">Total Batas ({formatMonthKeyID(monthKey)})</p>
-            <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-[#202238]">
+          <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+            <p className="text-xs text-text-secondary">Total Batas ({formatMonthKeyID(monthKey)})</p>
+            <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-text-primary">
               {formatIDR(totals.limit, { hidden })}
             </p>
           </div>
-          <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-            <p className="text-xs text-[#74778B]">Realisasi Pengeluaran</p>
-            <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-[#E65378]">
+          <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+            <p className="text-xs text-text-secondary">Realisasi Pengeluaran</p>
+            <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-expense">
               {formatIDR(totals.spent, { hidden })}
             </p>
           </div>
-          <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-            <p className="text-xs text-[#74778B]">Sisa Anggaran</p>
+          <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+            <p className="text-xs text-text-secondary">Sisa Anggaran</p>
             <p
               className={`mt-1.5 text-xl font-mono font-bold tabular-nums ${
-                totals.remaining < 0 ? 'text-[#E65378]' : 'text-[#16A779]'
+                totals.remaining < 0 ? 'text-expense' : 'text-income'
               }`}
             >
               {formatIDR(totals.remaining, { hidden })}
@@ -130,11 +130,11 @@ export function BudgetsView() {
           {progressList.map((item) => {
             const statusIcon =
               item.status === 'melebihi' ? (
-                <AlertCircle className="w-4 h-4 text-[#E65378]" />
+                <AlertCircle className="w-4 h-4 text-expense" />
               ) : item.status === 'peringatan' ? (
-                <AlertTriangle className="w-4 h-4 text-[#E5A13A]" />
+                <AlertTriangle className="w-4 h-4 text-warning" />
               ) : (
-                <CheckCircle2 className="w-4 h-4 text-[#16A779]" />
+                <CheckCircle2 className="w-4 h-4 text-income" />
               );
 
             const statusText =
@@ -147,12 +147,12 @@ export function BudgetsView() {
             return (
               <div
                 key={item.budget.id}
-                className="bg-white border border-[#E8E9F1] rounded-2xl p-5 space-y-3"
+                className="bg-surface border border-border rounded-2xl p-5 space-y-3"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h2 className="text-base font-semibold text-[#202238]">{item.categoryName}</h2>
-                    <p className="text-xs text-[#74778B] mt-0.5">
+                    <h2 className="text-base font-semibold text-text-primary">{item.categoryName}</h2>
+                    <p className="text-xs text-text-secondary mt-0.5">
                       Ambang peringatan {item.budget.warningThreshold}%
                     </p>
                   </div>
@@ -166,14 +166,14 @@ export function BudgetsView() {
                           item.budget.warningThreshold,
                         )
                       }
-                      className="min-h-[40px] px-2.5 rounded-lg text-xs font-medium text-[#6655D9] hover:bg-[#F0EDFF]"
+                      className="min-h-[40px] px-2.5 rounded-lg text-xs font-medium text-primary hover:bg-primary-soft"
                     >
                       Ubah
                     </button>
                     <button
                       type="button"
                       onClick={() => deleteBudget(item.budget.id)}
-                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-[#74778B] hover:text-[#E65378] hover:bg-[#FFF0F3]"
+                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-text-secondary hover:text-expense hover:bg-expense-soft"
                       aria-label={`Hapus anggaran ${item.categoryName}`}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -182,28 +182,28 @@ export function BudgetsView() {
                 </div>
 
                 <div className="flex items-baseline justify-between gap-2 font-mono tabular-nums text-sm">
-                  <span className="font-semibold text-[#202238]">
+                  <span className="font-semibold text-text-primary">
                     {formatIDR(item.spent, { hidden })}
                   </span>
-                  <span className="text-xs text-[#74778B]">
+                  <span className="text-xs text-text-secondary">
                     dari {formatIDR(item.budget.limitAmount, { hidden })}
                   </span>
                 </div>
 
-                <div className="h-2.5 rounded-full bg-[#F6F7FB] overflow-hidden">
+                <div className="h-2.5 rounded-full bg-surface-muted overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-200 ${
                       item.status === 'melebihi'
-                        ? 'bg-[#E65378]'
+                        ? 'bg-expense'
                         : item.status === 'peringatan'
-                        ? 'bg-[#E5A13A]'
-                        : 'bg-[#16A779]'
+                        ? 'bg-warning'
+                        : 'bg-income'
                     }`}
                     style={{ width: `${Math.min(100, item.percentage)}%` }}
                   />
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-medium text-[#202238]">
+                <div className="flex items-center gap-2 text-xs font-medium text-text-primary">
                   {statusIcon}
                   <span>{statusText}</span>
                 </div>
@@ -221,15 +221,15 @@ export function BudgetsView() {
         <div className="p-6">
           <div className="flex items-start justify-between gap-3 mb-4">
             <div>
-              <h2 id="budget-form-title" className="text-lg font-semibold text-[#202238]">
+              <h2 id="budget-form-title" className="text-lg font-semibold text-text-primary">
                 Atur Anggaran
               </h2>
-              <p className="text-xs text-[#74778B] mt-0.5">{formatMonthKeyID(monthKey)}</p>
+              <p className="text-xs text-text-secondary mt-0.5">{formatMonthKeyID(monthKey)}</p>
             </div>
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB]"
+              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted"
               aria-label="Tutup dialog"
             >
               <X className="w-5 h-5" />
@@ -238,13 +238,13 @@ export function BudgetsView() {
 
           <form onSubmit={handleSave} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Kategori Pengeluaran *
               </label>
               <select
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm bg-white"
+                className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm bg-surface"
                 required
               >
                 {expenseCategories.map((c) => (
@@ -256,7 +256,7 @@ export function BudgetsView() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Batas Anggaran Bulanan (IDR) *
               </label>
               <input
@@ -266,13 +266,13 @@ export function BudgetsView() {
                 onChange={(e) => setLimitStr(e.target.value)}
                 placeholder="Contoh: 1500000"
                 data-autofocus
-                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] font-mono tabular-nums text-sm"
+                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border font-mono tabular-nums text-sm"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Ambang Peringatan ({threshold}%)
               </label>
               <input
@@ -282,7 +282,7 @@ export function BudgetsView() {
                 step={5}
                 value={threshold}
                 onChange={(e) => setThreshold(Number(e.target.value))}
-                className="w-full accent-[#6655D9]"
+                className="w-full accent-primary"
               />
             </div>
 
@@ -290,13 +290,13 @@ export function BudgetsView() {
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium"
+                className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium"
+                className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium"
               >
                 Simpan Anggaran
               </button>

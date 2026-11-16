@@ -57,7 +57,7 @@ function FinoraAppShell() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F6F7FB] text-[#202238]">
+    <div className="flex min-h-screen bg-background text-text-primary">
       <button type="button" className="skip-link" onClick={() => mainRef.current?.focus()}>
         Lewati ke konten utama
       </button>

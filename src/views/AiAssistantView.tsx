@@ -118,7 +118,7 @@ export function AiAssistantView() {
               value={preset}
               onChange={(e) => setPreset(e.target.value as PeriodPreset)}
               aria-label="Periode acuan AI"
-              className="min-h-[44px] px-3 py-1.5 rounded-xl border border-[#E8E9F1] bg-white text-xs font-medium text-[#202238]"
+              className="min-h-[44px] px-3 py-1.5 rounded-xl border border-border bg-surface text-xs font-medium text-text-primary"
             >
               <option value="this_month">Acuan: Bulan Ini</option>
               <option value="last_month">Acuan: Bulan Lalu</option>
@@ -130,7 +130,7 @@ export function AiAssistantView() {
               <button
                 type="button"
                 onClick={() => setConfirmClearOpen(true)}
-                className="min-h-[44px] px-3 py-1.5 rounded-xl border border-[#E8E9F1] bg-white hover:bg-[#FFF0F3] text-xs font-medium text-[#E65378] inline-flex items-center gap-1.5"
+                className="min-h-[44px] px-3 py-1.5 rounded-xl border border-border bg-surface hover:bg-expense-soft text-xs font-medium text-expense inline-flex items-center gap-1.5"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 Hapus Riwayat
@@ -141,38 +141,38 @@ export function AiAssistantView() {
       />
 
       {/* Privacy Consent Strip */}
-      <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-start gap-2.5 text-xs text-[#74778B]">
-          <ShieldCheck className="w-4 h-4 text-[#16A779] shrink-0 mt-0.5" />
+      <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-start gap-2.5 text-xs text-text-secondary">
+          <ShieldCheck className="w-4 h-4 text-income shrink-0 mt-0.5" />
           <span>
             Hanya ringkasan angka agregat periode ({periodRange.label}) yang dikirim saat Anda
             bertanya. File bukti struk tidak dikirim ke model AI.
           </span>
         </div>
-        <label className="inline-flex items-center gap-2 text-xs font-medium text-[#202238] cursor-pointer shrink-0">
+        <label className="inline-flex items-center gap-2 text-xs font-medium text-text-primary cursor-pointer shrink-0">
           <input
             type="checkbox"
             checked={state.preferences.aiConsentEnabled}
             onChange={(e) => updatePreferences({ aiConsentEnabled: e.target.checked })}
-            className="w-4 h-4 accent-[#6655D9]"
+            className="w-4 h-4 accent-primary"
           />
           Izinkan Analisis AI
         </label>
       </div>
 
       {/* Chat Container */}
-      <div className="bg-white border border-[#E8E9F1] rounded-2xl flex flex-col min-h-[420px] max-h-[68dvh]">
+      <div className="bg-surface border border-border rounded-2xl flex flex-col min-h-[420px] max-h-[68dvh]">
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
           {state.aiHistory.length === 0 ? (
             <div className="py-6 text-center max-w-xl mx-auto space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F0EDFF] text-[#6655D9] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center mx-auto">
                 <Bot className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-base font-semibold text-[#202238]">
+                <h2 className="text-base font-semibold text-text-primary">
                   Tanyakan Kondisi Keuangan Anda
                 </h2>
-                <p className="text-xs sm:text-sm text-[#74778B] mt-1">
+                <p className="text-xs sm:text-sm text-text-secondary mt-1">
                   Pilih salah satu pertanyaan di bawah atau ketik pertanyaan Anda sendiri untuk
                   periode <strong>{periodRange.label}</strong>.
                 </p>
@@ -185,7 +185,7 @@ export function AiAssistantView() {
                     type="button"
                     disabled={loading}
                     onClick={() => sendQuestion(q)}
-                    className="p-3 rounded-xl border border-[#E8E9F1] hover:border-[#6655D9]/50 hover:bg-[#F0EDFF]/40 text-xs text-[#202238] leading-relaxed transition-colors text-left"
+                    className="p-3 rounded-xl border border-border hover:border-primary/50 hover:bg-primary-soft/40 text-xs text-text-primary leading-relaxed transition-colors text-left"
                   >
                     {q}
                   </button>
@@ -201,14 +201,14 @@ export function AiAssistantView() {
                 <div
                   className={`max-w-[88%] sm:max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-[#6655D9] text-white'
-                      : 'bg-[#F6F7FB] border border-[#E8E9F1] text-[#202238]'
+                      ? 'bg-primary text-white'
+                      : 'bg-surface-muted border border-border text-text-primary'
                   }`}
                 >
                   <div className="whitespace-pre-wrap">{msg.content}</div>
                   <p
                     className={`mt-2 text-[11px] ${
-                      msg.role === 'user' ? 'text-white/75' : 'text-[#74778B]'
+                      msg.role === 'user' ? 'text-white/75' : 'text-text-secondary'
                     }`}
                   >
                     {msg.periodLabel ? `${msg.periodLabel} · ` : ''}
@@ -221,7 +221,7 @@ export function AiAssistantView() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-[#F6F7FB] border border-[#E8E9F1] rounded-2xl px-4 py-3 text-xs text-[#74778B]">
+              <div className="bg-surface-muted border border-border rounded-2xl px-4 py-3 text-xs text-text-secondary">
                 Menyusun ringkasan data dan analisis untuk {periodRange.label}...
               </div>
             </div>
@@ -231,7 +231,7 @@ export function AiAssistantView() {
         {errorBanner && (
           <div
             role="alert"
-            className="mx-4 mb-2 px-3.5 py-2.5 rounded-xl bg-[#FFF0F3] border border-[#E65378]/30 text-xs text-[#E65378] flex items-center gap-2"
+            className="mx-4 mb-2 px-3.5 py-2.5 rounded-xl bg-expense-soft border border-expense/30 text-xs text-expense flex items-center gap-2"
           >
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorBanner}</span>
@@ -240,7 +240,7 @@ export function AiAssistantView() {
 
         <form
           onSubmit={handleSubmit}
-          className="p-3 sm:p-4 border-t border-[#E8E9F1] flex items-center gap-2"
+          className="p-3 sm:p-4 border-t border-border flex items-center gap-2"
         >
           <input
             type="text"
@@ -248,12 +248,12 @@ export function AiAssistantView() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Tanyakan pengeluaran, anggaran, atau estimasi tabungan..."
             disabled={loading}
-            className="flex-1 min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+            className="flex-1 min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm text-text-primary focus:outline-none focus:border-primary"
           />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="min-h-[44px] min-w-[44px] px-4 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] disabled:opacity-50 text-white inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors shrink-0"
+            className="min-h-[44px] min-w-[44px] px-4 rounded-xl bg-primary hover:bg-primary-dark disabled:opacity-50 text-white inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors shrink-0"
             aria-label="Kirim pertanyaan"
           >
             <Send className="w-4 h-4" />

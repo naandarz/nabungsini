@@ -92,23 +92,23 @@ export function TransactionDetailModal({
       <div
         ref={dialogRef}
         tabIndex={-1}
-        className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-[#202238]/45 backdrop-blur-[2px] p-0 md:p-4 focus:outline-none"
+        className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-overlay/45 backdrop-blur-[2px] p-0 md:p-4 focus:outline-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="tx-detail-title"
       >
-        <div className="modal-panel w-full md:max-w-lg bg-white border border-[#E8E9F1] rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[90dvh] flex flex-col">
-          <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[#E8E9F1]">
+        <div className="modal-panel w-full md:max-w-lg bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[90dvh] flex flex-col">
+          <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border">
             <div>
-              <h2 id="tx-detail-title" className="text-base font-semibold text-[#202238]">
+              <h2 id="tx-detail-title" className="text-base font-semibold text-text-primary">
                 Detail Transaksi
               </h2>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs font-mono text-[#74778B]">{transaction.id}</span>
+                <span className="text-xs font-mono text-text-secondary">{transaction.id}</span>
                 <button
                   type="button"
                   onClick={handleCopyId}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-[#6655D9] hover:text-[#4938B5] px-1.5 py-0.5 rounded hover:bg-[#F0EDFF] transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark px-1.5 py-0.5 rounded hover:bg-primary-soft transition-colors"
                   aria-label="Salin ID transaksi"
                 >
                   {copiedId ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -119,7 +119,7 @@ export function TransactionDetailModal({
             <button
               type="button"
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB] hover:text-[#202238]"
+              className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted hover:text-text-primary"
               aria-label="Tutup detail transaksi"
             >
               <X className="w-5 h-5" />
@@ -128,18 +128,18 @@ export function TransactionDetailModal({
 
           <div className="overflow-y-auto px-5 sm:px-6 py-5 space-y-5">
             {/* Highlight Nominal */}
-            <div className="p-4 rounded-2xl bg-[#F6F7FB] border border-[#E8E9F1]">
-              <div className="flex items-center justify-between text-xs text-[#74778B]">
+            <div className="p-4 rounded-2xl bg-surface-muted border border-border">
+              <div className="flex items-center justify-between text-xs text-text-secondary">
                 <span>{getTransactionTypeLabel(transaction.type)}</span>
                 <span>{statusLabel}</span>
               </div>
               <p
                 className={`mt-1.5 text-2xl sm:text-3xl font-mono font-bold tabular-nums ${
                   transaction.type === 'income'
-                    ? 'text-[#16A779]'
+                    ? 'text-income'
                     : transaction.type === 'expense'
-                    ? 'text-[#E65378]'
-                    : 'text-[#202238]'
+                    ? 'text-expense'
+                    : 'text-text-primary'
                 }`}
               >
                 {transaction.type === 'adjustment'
@@ -148,67 +148,67 @@ export function TransactionDetailModal({
                     )}`
                   : formatIDR(transaction.amount, { signed: true, type: transaction.type })}
               </p>
-              <p className="mt-1.5 text-sm font-medium text-[#202238]">{transaction.description}</p>
+              <p className="mt-1.5 text-sm font-medium text-text-primary">{transaction.description}</p>
             </div>
 
             {/* Structured Metadata */}
-            <dl className="divide-y divide-[#E8E9F1] border border-[#E8E9F1] rounded-2xl px-4 text-sm">
+            <dl className="divide-y divide-border border border-border rounded-2xl px-4 text-sm">
               <div className="py-3 flex justify-between gap-4">
-                <dt className="text-[#74778B]">Waktu Transaksi</dt>
-                <dd className="font-medium text-[#202238] text-right">
+                <dt className="text-text-secondary">Waktu Transaksi</dt>
+                <dd className="font-medium text-text-primary text-right">
                   {formatDateID(transaction.date, true)}
                 </dd>
               </div>
               <div className="py-3 flex justify-between gap-4">
-                <dt className="text-[#74778B]">
+                <dt className="text-text-secondary">
                   {transaction.type === 'transfer' ? 'Akun Sumber' : 'Akun'}
                 </dt>
-                <dd className="font-medium text-[#202238] text-right">
+                <dd className="font-medium text-text-primary text-right">
                   {sourceAcc?.name || 'Akun tidak ditemukan'}
                 </dd>
               </div>
               {transaction.type === 'transfer' && (
                 <div className="py-3 flex justify-between gap-4">
-                  <dt className="text-[#74778B]">Akun Tujuan</dt>
-                  <dd className="font-medium text-[#202238] text-right">
+                  <dt className="text-text-secondary">Akun Tujuan</dt>
+                  <dd className="font-medium text-text-primary text-right">
                     {destAcc?.name || 'Akun tidak ditemukan'}
                   </dd>
                 </div>
               )}
               {(transaction.type === 'income' || transaction.type === 'expense') && (
                 <div className="py-3 flex justify-between gap-4">
-                  <dt className="text-[#74778B]">Kategori</dt>
-                  <dd className="font-medium text-[#202238] text-right">
+                  <dt className="text-text-secondary">Kategori</dt>
+                  <dd className="font-medium text-text-primary text-right">
                     {category?.name || 'Belum dikategorikan'}
                   </dd>
                 </div>
               )}
               <div className="py-3 flex justify-between gap-4">
-                <dt className="text-[#74778B]">Sumber Pencatatan</dt>
-                <dd className="font-medium text-[#202238] text-right">{sourceLabel}</dd>
+                <dt className="text-text-secondary">Sumber Pencatatan</dt>
+                <dd className="font-medium text-text-primary text-right">{sourceLabel}</dd>
               </div>
               <div className="py-3 flex justify-between gap-4">
-                <dt className="text-[#74778B]">Dicatat Pada</dt>
-                <dd className="text-xs font-mono text-[#74778B] text-right">
+                <dt className="text-text-secondary">Dicatat Pada</dt>
+                <dd className="text-xs font-mono text-text-secondary text-right">
                   {formatDateID(transaction.createdAt, true)}
                 </dd>
               </div>
               {transaction.note && (
                 <div className="py-3 space-y-1">
-                  <dt className="text-[#74778B]">Catatan</dt>
-                  <dd className="text-[#202238] leading-relaxed">{transaction.note}</dd>
+                  <dt className="text-text-secondary">Catatan</dt>
+                  <dd className="text-text-primary leading-relaxed">{transaction.note}</dd>
                 </div>
               )}
             </dl>
 
             {/* Attachments Section */}
             <div>
-              <div className="flex items-center gap-2 text-xs font-medium text-[#74778B] mb-2">
+              <div className="flex items-center gap-2 text-xs font-medium text-text-secondary mb-2">
                 <Paperclip className="w-3.5 h-3.5" />
                 <span>Bukti Transaksi ({attachments.length})</span>
               </div>
               {attachments.length === 0 ? (
-                <p className="text-xs text-[#74778B] bg-[#F6F7FB] border border-[#E8E9F1] rounded-xl px-3.5 py-3">
+                <p className="text-xs text-text-secondary bg-surface-muted border border-border rounded-xl px-3.5 py-3">
                   Tidak ada lampiran bukti pada transaksi ini. Anda dapat menambahkannya melalui
                   tombol Ubah.
                 </p>
@@ -217,7 +217,7 @@ export function TransactionDetailModal({
                   {attachments.map((att) => (
                     <div
                       key={att.id}
-                      className="border border-[#E8E9F1] rounded-xl p-2.5 bg-[#F6F7FB] flex items-center justify-between gap-2"
+                      className="border border-border rounded-xl p-2.5 bg-surface-muted flex items-center justify-between gap-2"
                     >
                       <button
                         type="button"
@@ -228,24 +228,24 @@ export function TransactionDetailModal({
                           <img
                             src={att.dataUrl}
                             alt={att.fileName}
-                            className="w-11 h-11 rounded-lg object-cover border border-[#E8E9F1] shrink-0"
+                            className="w-11 h-11 rounded-lg object-cover border border-border shrink-0"
                           />
                         ) : (
-                          <div className="w-11 h-11 rounded-lg bg-white border border-[#E8E9F1] flex items-center justify-center text-[#6655D9] shrink-0">
+                          <div className="w-11 h-11 rounded-lg bg-surface border border-border flex items-center justify-center text-primary shrink-0">
                             <FileText className="w-5 h-5" />
                           </div>
                         )}
                         <div className="min-w-0">
-                          <p className="text-xs font-medium text-[#202238] truncate">
+                          <p className="text-xs font-medium text-text-primary truncate">
                             {att.fileName}
                           </p>
-                          <p className="text-[11px] text-[#6655D9]">Lihat bukti</p>
+                          <p className="text-[11px] text-primary">Lihat bukti</p>
                         </div>
                       </button>
                       <a
                         href={att.dataUrl}
                         download={att.fileName}
-                        className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-[#74778B] hover:bg-white hover:text-[#202238]"
+                        className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-text-secondary hover:bg-surface hover:text-text-primary"
                         aria-label={`Unduh ${att.fileName}`}
                       >
                         <Download className="w-4 h-4" />
@@ -257,11 +257,11 @@ export function TransactionDetailModal({
             </div>
           </div>
 
-          <div className="px-5 sm:px-6 py-4 border-t border-[#E8E9F1] flex items-center justify-between gap-3">
+          <div className="px-5 sm:px-6 py-4 border-t border-border flex items-center justify-between gap-3">
             <button
               type="button"
               onClick={() => setConfirmDeleteOpen(true)}
-              className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E65378]/30 text-[#E65378] hover:bg-[#FFF0F3] text-sm font-medium inline-flex items-center gap-2 transition-colors"
+              className="min-h-[44px] px-4 py-2 rounded-xl border border-expense/30 text-expense hover:bg-expense-soft text-sm font-medium inline-flex items-center gap-2 transition-colors"
             >
               <Trash2 className="w-4 h-4" />
               Hapus
@@ -273,7 +273,7 @@ export function TransactionDetailModal({
                   onClose();
                   onEdit(transaction);
                 }}
-                className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium inline-flex items-center gap-2 transition-colors"
+                className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium inline-flex items-center gap-2 transition-colors"
               >
                 <Edit3 className="w-4 h-4" />
                 Ubah Transaksi
@@ -288,31 +288,31 @@ export function TransactionDetailModal({
         <div
           ref={lightboxRef}
           tabIndex={-1}
-          className="fixed inset-0 z-[60] bg-[#202238]/85 flex flex-col items-center justify-center p-4 focus:outline-none"
+          className="fixed inset-0 z-[60] bg-overlay/85 flex flex-col items-center justify-center p-4 focus:outline-none"
           role="dialog"
           aria-modal="true"
           aria-label="Pratinjau lampiran"
           onClick={() => setPreviewAttachment(null)}
         >
           <div
-            className="modal-panel max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
+            className="modal-panel max-w-3xl w-full bg-surface rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#E8E9F1]">
-              <p className="text-sm font-medium text-[#202238] truncate">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+              <p className="text-sm font-medium text-text-primary truncate">
                 {previewAttachment.fileName}
               </p>
               <button
                 type="button"
                 onClick={() => setPreviewAttachment(null)}
                 data-autofocus
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-[#74778B] hover:bg-[#F6F7FB]"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-text-secondary hover:bg-surface-muted"
                 aria-label="Tutup pratinjau"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="p-4 bg-[#F6F7FB] flex items-center justify-center max-h-[75vh] overflow-auto">
+            <div className="p-4 bg-surface-muted flex items-center justify-center max-h-[75vh] overflow-auto">
               {previewAttachment.mimeType.startsWith('image/') ? (
                 <img
                   src={previewAttachment.dataUrl}
@@ -321,12 +321,12 @@ export function TransactionDetailModal({
                 />
               ) : (
                 <div className="text-center py-8 space-y-3">
-                  <FileText className="w-12 h-12 text-[#6655D9] mx-auto" />
-                  <p className="text-sm text-[#202238]">{previewAttachment.fileName}</p>
+                  <FileText className="w-12 h-12 text-primary mx-auto" />
+                  <p className="text-sm text-text-primary">{previewAttachment.fileName}</p>
                   <a
                     href={previewAttachment.dataUrl}
                     download={previewAttachment.fileName}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#6655D9] text-white text-sm font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-medium"
                   >
                     <Download className="w-4 h-4" />
                     Unduh Dokumen PDF

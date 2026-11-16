@@ -42,10 +42,10 @@ export function AppModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby={labelledBy}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-[#202238]/45 p-0 backdrop-blur-[2px] focus:outline-none sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-overlay/45 p-0 backdrop-blur-[2px] focus:outline-none sm:items-center sm:p-4"
     >
       <div
-        className={`modal-panel w-full ${WIDTH_CLASS[width]} max-h-[92dvh] overflow-y-auto rounded-t-3xl border border-[#E8E9F1] bg-white shadow-2xl sm:rounded-2xl ${panelClassName}`}
+        className={`modal-panel w-full ${WIDTH_CLASS[width]} max-h-[92dvh] overflow-y-auto rounded-t-3xl border border-border bg-surface shadow-2xl sm:rounded-2xl ${panelClassName}`}
       >
         {children}
       </div>

@@ -69,7 +69,7 @@ export function SavingsView() {
           <button
             type="button"
             onClick={() => setCreateOpen(true)}
-            className="min-h-[44px] px-4 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap"
+            className="min-h-[44px] px-4 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap"
           >
             <Plus className="w-4 h-4" />
             Buat Target Baru
@@ -77,8 +77,8 @@ export function SavingsView() {
         }
       />
 
-      <div className="flex items-start gap-2.5 px-4 py-3 rounded-2xl bg-white border border-[#E8E9F1] text-xs text-[#74778B]">
-        <Info className="w-4 h-4 text-[#3989D8] shrink-0 mt-0.5" />
+      <div className="flex items-start gap-2.5 px-4 py-3 rounded-2xl bg-surface border border-border text-xs text-text-secondary">
+        <Info className="w-4 h-4 text-info shrink-0 mt-0.5" />
         <span>
           Mencatat kontribusi target di halaman ini memperbarui progres tujuan tanpa mengubah saldo
           akun secara ganda. Jika Anda memindahkan uang antar-rekening, catat juga sebagai{' '}
@@ -103,13 +103,13 @@ export function SavingsView() {
             return (
               <div
                 key={goal.id}
-                className="bg-white border border-[#E8E9F1] rounded-2xl p-5 flex flex-col justify-between gap-4"
+                className="bg-surface border border-border rounded-2xl p-5 flex flex-col justify-between gap-4"
               >
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h2 className="text-base font-semibold text-[#202238]">{goal.name}</h2>
-                      <p className="text-xs text-[#74778B] mt-0.5">
+                      <h2 className="text-base font-semibold text-text-primary">{goal.name}</h2>
+                      <p className="text-xs text-text-secondary mt-0.5">
                         Prioritas {goal.priority} · Status{' '}
                         {goal.status === 'tercapai'
                           ? 'Tercapai'
@@ -122,7 +122,7 @@ export function SavingsView() {
                     <button
                       type="button"
                       onClick={() => deleteSavingsGoal(goal.id)}
-                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-[#74778B] hover:text-[#E65378] hover:bg-[#FFF0F3]"
+                      className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-text-secondary hover:text-expense hover:bg-expense-soft"
                       aria-label={`Hapus target ${goal.name}`}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -130,37 +130,37 @@ export function SavingsView() {
                   </div>
 
                   {goal.description && (
-                    <p className="text-xs text-[#74778B] leading-relaxed">{goal.description}</p>
+                    <p className="text-xs text-text-secondary leading-relaxed">{goal.description}</p>
                   )}
 
                   <div>
                     <div className="flex items-baseline justify-between gap-2 text-sm">
-                      <span className="font-mono font-bold tabular-nums text-[#16A779]">
+                      <span className="font-mono font-bold tabular-nums text-income">
                         {formatIDR(item.savedAmount, { hidden })}
                       </span>
-                      <span className="text-xs font-mono tabular-nums text-[#74778B]">
+                      <span className="text-xs font-mono tabular-nums text-text-secondary">
                         Target {formatIDR(goal.targetAmount, { hidden })} ({item.percentage}%)
                       </span>
                     </div>
-                    <div className="mt-2 h-2.5 rounded-full bg-[#F6F7FB] overflow-hidden">
+                    <div className="mt-2 h-2.5 rounded-full bg-surface-muted overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-[#16A779] transition-all duration-200"
+                        className="h-full rounded-full bg-income transition-all duration-200"
                         style={{ width: `${item.percentage}%` }}
                       />
                     </div>
                   </div>
 
-                  <div className="text-xs text-[#74778B] space-y-1 bg-[#F6F7FB] rounded-xl p-3 border border-[#E8E9F1]">
+                  <div className="text-xs text-text-secondary space-y-1 bg-surface-muted rounded-xl p-3 border border-border">
                     <div className="flex justify-between">
                       <span>Sisa dana dibutuhkan</span>
-                      <span className="font-mono font-semibold text-[#202238]">
+                      <span className="font-mono font-semibold text-text-primary">
                         {formatIDR(item.remainingAmount, { hidden })}
                       </span>
                     </div>
                     {item.recommendedMonthly !== null && (
                       <div className="flex justify-between">
                         <span>Perkiraan setoran/bulan</span>
-                        <span className="font-mono font-medium text-[#202238]">
+                        <span className="font-mono font-medium text-text-primary">
                           {formatIDR(item.recommendedMonthly, { hidden })}
                         </span>
                       </div>
@@ -168,7 +168,7 @@ export function SavingsView() {
                     {item.estimatedCompletionDate && (
                       <div className="flex justify-between">
                         <span>Perkiraan tercapai</span>
-                        <span className="font-medium text-[#202238]">
+                        <span className="font-medium text-text-primary">
                           {item.estimatedCompletionDate === 'Sudah tercapai'
                             ? 'Sudah tercapai'
                             : formatDateID(item.estimatedCompletionDate)}
@@ -178,14 +178,14 @@ export function SavingsView() {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-[#E8E9F1] flex items-center gap-2">
+                <div className="pt-2 border-t border-border flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => {
                       setContribGoal(goal);
                       setContribType('deposit');
                     }}
-                    className="flex-1 min-h-[44px] px-3 py-2 rounded-xl bg-[#E8F8F1] hover:bg-[#d5f2e4] text-[#16A779] text-xs font-semibold inline-flex items-center justify-center gap-1.5"
+                    className="flex-1 min-h-[44px] px-3 py-2 rounded-xl bg-income-soft hover:bg-income-soft text-income text-xs font-semibold inline-flex items-center justify-center gap-1.5"
                   >
                     <ArrowDownCircle className="w-4 h-4" />
                     Tambah Kontribusi
@@ -196,9 +196,9 @@ export function SavingsView() {
                       setContribGoal(goal);
                       setContribType('withdraw');
                     }}
-                    className="min-h-[44px] px-3 py-2 rounded-xl border border-[#E8E9F1] hover:bg-[#F6F7FB] text-[#202238] text-xs font-medium inline-flex items-center justify-center gap-1.5"
+                    className="min-h-[44px] px-3 py-2 rounded-xl border border-border hover:bg-surface-muted text-text-primary text-xs font-medium inline-flex items-center justify-center gap-1.5"
                   >
-                    <ArrowUpCircle className="w-4 h-4 text-[#74778B]" />
+                    <ArrowUpCircle className="w-4 h-4 text-text-secondary" />
                     Tarik
                   </button>
                 </div>
@@ -217,17 +217,17 @@ export function SavingsView() {
         <div className="p-6">
           <div className="flex items-start justify-between gap-3 mb-4">
             <div>
-              <h2 id="savings-goal-title" className="text-lg font-semibold text-[#202238]">
+              <h2 id="savings-goal-title" className="text-lg font-semibold text-text-primary">
                 Buat Target Tabungan
               </h2>
-              <p className="text-xs text-[#74778B] mt-0.5">
+              <p className="text-xs text-text-secondary mt-0.5">
                 Tentukan nominal dan tenggat agar progres bisa dipantau.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setCreateOpen(false)}
-              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB]"
+              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted"
               aria-label="Tutup dialog"
             >
               <X className="w-5 h-5" />
@@ -235,7 +235,7 @@ export function SavingsView() {
           </div>
           <form onSubmit={handleCreateGoal} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Nama Target *
               </label>
               <input
@@ -244,13 +244,13 @@ export function SavingsView() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Contoh: Dana Darurat, Laptop Kerja"
                 data-autofocus
-                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-sm"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Nominal Target (IDR) *
               </label>
               <input
@@ -259,29 +259,29 @@ export function SavingsView() {
                 value={targetAmountStr}
                 onChange={(e) => setTargetAmountStr(e.target.value)}
                 placeholder="10000000"
-                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] font-mono tabular-nums text-sm"
+                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border font-mono tabular-nums text-sm"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-[#74778B] mb-1">
+                <label className="block text-xs font-medium text-text-secondary mb-1">
                   Tenggat (Opsional)
                 </label>
                 <input
                   type="date"
                   value={targetDate}
                   onChange={(e) => setTargetDate(e.target.value)}
-                  className="w-full min-h-[44px] px-3 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                  className="w-full min-h-[44px] px-3 py-2 rounded-xl border border-border text-sm"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#74778B] mb-1">Prioritas</label>
+                <label className="block text-xs font-medium text-text-secondary mb-1">Prioritas</label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as GoalPriority)}
-                  className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm bg-white"
+                  className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm bg-surface"
                 >
                   <option value="tinggi">Tinggi</option>
                   <option value="sedang">Sedang</option>
@@ -291,7 +291,7 @@ export function SavingsView() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Deskripsi (Opsional)
               </label>
               <input
@@ -299,7 +299,7 @@ export function SavingsView() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Catatan singkat mengenai target ini"
-                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-sm"
               />
             </div>
 
@@ -307,13 +307,13 @@ export function SavingsView() {
               <button
                 type="button"
                 onClick={() => setCreateOpen(false)}
-                className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium"
+                className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium"
+                className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium"
               >
                 Simpan Target
               </button>
@@ -331,15 +331,15 @@ export function SavingsView() {
         <div className="p-6">
           <div className="flex items-start justify-between gap-3 mb-4">
             <div>
-              <h2 id="savings-contrib-title" className="text-lg font-semibold text-[#202238]">
+              <h2 id="savings-contrib-title" className="text-lg font-semibold text-text-primary">
                 {contribType === 'deposit' ? 'Tambah Kontribusi' : 'Catat Penarikan'}
               </h2>
-              <p className="text-xs text-[#74778B] mt-0.5">{contribGoal?.name}</p>
+              <p className="text-xs text-text-secondary mt-0.5">{contribGoal?.name}</p>
             </div>
             <button
               type="button"
               onClick={() => setContribGoal(null)}
-              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB]"
+              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted"
               aria-label="Tutup dialog"
             >
               <X className="w-5 h-5" />
@@ -347,7 +347,7 @@ export function SavingsView() {
           </div>
           <form onSubmit={handleRecordContribution} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Nominal (IDR) *
               </label>
               <input
@@ -356,22 +356,22 @@ export function SavingsView() {
                 value={contribAmountStr}
                 onChange={(e) => setContribAmountStr(e.target.value)}
                 data-autofocus
-                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] font-mono tabular-nums text-sm"
+                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border font-mono tabular-nums text-sm"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">Tanggal *</label>
+              <label className="block text-xs font-medium text-text-secondary mb-1">Tanggal *</label>
               <input
                 type="date"
                 value={contribDate}
                 onChange={(e) => setContribDate(e.target.value)}
-                className="w-full min-h-[44px] px-3 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                className="w-full min-h-[44px] px-3 py-2 rounded-xl border border-border text-sm"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#74778B] mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Catatan (Opsional)
               </label>
               <input
@@ -379,20 +379,20 @@ export function SavingsView() {
                 value={contribNote}
                 onChange={(e) => setContribNote(e.target.value)}
                 placeholder="Contoh: Alokasi gaji bulan ini"
-                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] text-sm"
+                className="w-full min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-sm"
               />
             </div>
             <div className="pt-2 flex justify-end gap-2.5">
               <button
                 type="button"
                 onClick={() => setContribGoal(null)}
-                className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium"
+                className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium"
+                className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium"
               >
                 Simpan
               </button>

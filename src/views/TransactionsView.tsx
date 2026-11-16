@@ -114,23 +114,23 @@ export function TransactionsView({
             <button
               type="button"
               onClick={onOpenCsvImport}
-              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl border border-[#E8E9F1] bg-white px-3.5 py-2 text-xs font-medium text-[#202238] hover:bg-[#F6F7FB] sm:text-sm"
+              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text-primary hover:bg-surface-muted sm:text-sm"
             >
-              <FileSpreadsheet className="h-4 w-4 text-[#6655D9]" />
+              <FileSpreadsheet className="h-4 w-4 text-primary" />
               Impor CSV
             </button>
             <button
               type="button"
               onClick={handleExportCsv}
-              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl border border-[#E8E9F1] bg-white px-3.5 py-2 text-xs font-medium text-[#202238] hover:bg-[#F6F7FB] sm:text-sm"
+              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text-primary hover:bg-surface-muted sm:text-sm"
             >
-              <Download className="h-4 w-4 text-[#74778B]" />
+              <Download className="h-4 w-4 text-text-secondary" />
               Ekspor CSV
             </button>
             <button
               type="button"
               onClick={() => onOpenNewTx('expense')}
-              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl bg-[#6655D9] px-4 py-2 text-xs font-medium text-white hover:bg-[#4938B5] sm:text-sm"
+              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-xs font-medium text-white hover:bg-primary-dark sm:text-sm"
             >
               <Plus className="h-4 w-4" />
               Tambah Transaksi
@@ -140,16 +140,16 @@ export function TransactionsView({
       />
 
       {/* Search & Filter Panel */}
-      <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 space-y-3">
+      <div className="bg-surface border border-border rounded-2xl p-4 space-y-3">
         <div className="flex flex-col md:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-[#74778B] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-text-secondary absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari deskripsi, kategori, catatan, atau ID (FIN-...)..."
-              className="w-full min-h-[44px] pl-10 pr-4 py-2 rounded-xl border border-[#E8E9F1] text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+              className="w-full min-h-[44px] pl-10 pr-4 py-2 rounded-xl border border-border text-sm text-text-primary focus:outline-none focus:border-primary"
             />
           </div>
 
@@ -168,8 +168,8 @@ export function TransactionsView({
                 onClick={() => setTypeFilter(val)}
                 className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                   typeFilter === val
-                    ? 'bg-[#6655D9] text-white'
-                    : 'bg-[#F6F7FB] text-[#74778B] hover:text-[#202238]'
+                    ? 'bg-primary text-white'
+                    : 'bg-surface-muted text-text-secondary hover:text-text-primary'
                 }`}
               >
                 {label}
@@ -181,8 +181,8 @@ export function TransactionsView({
               onClick={() => setShowAdvancedFilters((v) => !v)}
               className={`min-h-[44px] px-3 py-1.5 rounded-xl border text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                 showAdvancedFilters
-                  ? 'border-[#6655D9] bg-[#F0EDFF] text-[#4938B5]'
-                  : 'border-[#E8E9F1] bg-white text-[#202238]'
+                  ? 'border-primary bg-primary-soft text-primary-dark'
+                  : 'border-border bg-surface text-text-primary'
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -192,12 +192,12 @@ export function TransactionsView({
         </div>
 
         {showAdvancedFilters && (
-          <div className="pt-3 border-t border-[#E8E9F1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="pt-3 border-t border-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             <select
               value={accountFilter}
               onChange={(e) => setAccountFilter(e.target.value)}
               aria-label="Filter akun"
-              className="min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-xs text-[#202238] bg-white"
+              className="min-h-[44px] px-3 rounded-xl border border-border text-xs text-text-primary bg-surface"
             >
               <option value="all">Semua Akun</option>
               {accountsWithBalances.map((a) => (
@@ -211,7 +211,7 @@ export function TransactionsView({
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               aria-label="Filter kategori"
-              className="min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-xs text-[#202238] bg-white"
+              className="min-h-[44px] px-3 rounded-xl border border-border text-xs text-text-primary bg-surface"
             >
               <option value="all">Semua Kategori</option>
               {state.categories.map((c) => (
@@ -227,7 +227,7 @@ export function TransactionsView({
                 setSourceFilter(e.target.value as 'all' | 'manual' | 'import' | 'system')
               }
               aria-label="Filter sumber"
-              className="min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-xs text-[#202238] bg-white"
+              className="min-h-[44px] px-3 rounded-xl border border-border text-xs text-text-primary bg-surface"
             >
               <option value="all">Semua Sumber</option>
               <option value="manual">Input Manual</option>
@@ -240,7 +240,7 @@ export function TransactionsView({
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               aria-label="Dari tanggal"
-              className="min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-xs text-[#202238] bg-white"
+              className="min-h-[44px] px-3 rounded-xl border border-border text-xs text-text-primary bg-surface"
             />
 
             <div className="flex items-center gap-2">
@@ -249,12 +249,12 @@ export function TransactionsView({
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 aria-label="Sampai tanggal"
-                className="flex-1 min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-xs text-[#202238] bg-white"
+                className="flex-1 min-h-[44px] px-3 rounded-xl border border-border text-xs text-text-primary bg-surface"
               />
               <button
                 type="button"
                 onClick={resetFilters}
-                className="min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-xs font-medium text-[#74778B] hover:text-[#202238] whitespace-nowrap"
+                className="min-h-[44px] px-3 rounded-xl border border-border text-xs font-medium text-text-secondary hover:text-text-primary whitespace-nowrap"
               >
                 Reset
               </button>
@@ -263,15 +263,15 @@ export function TransactionsView({
         )}
 
         {/* Filter Totals & Sort */}
-        <div className="pt-2 border-t border-[#E8E9F1] flex flex-wrap items-center justify-between gap-2 text-xs">
-          <div className="flex flex-wrap items-center gap-3 text-[#74778B]">
+        <div className="pt-2 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="flex flex-wrap items-center gap-3 text-text-secondary">
             <span>{filtered.length} transaksi</span>
             <span>·</span>
-            <span className="font-mono tabular-nums text-[#16A779]">
+            <span className="font-mono tabular-nums text-income">
               +{formatIDR(summary.income, { hidden })}
             </span>
             <span>·</span>
-            <span className="font-mono tabular-nums text-[#E65378]">
+            <span className="font-mono tabular-nums text-expense">
               −{formatIDR(summary.expense, { hidden })}
             </span>
           </div>
@@ -284,7 +284,7 @@ export function TransactionsView({
               )
             }
             aria-label="Urutkan transaksi"
-            className="min-h-[40px] px-2.5 rounded-lg border border-[#E8E9F1] text-xs text-[#202238] bg-white"
+            className="min-h-[40px] px-2.5 rounded-lg border border-border text-xs text-text-primary bg-surface"
           >
             <option value="date_desc">Terbaru</option>
             <option value="date_asc">Terlama</option>
@@ -313,10 +313,10 @@ export function TransactionsView({
       ) : (
         <>
           {/* Desktop Table */}
-          <div className="hidden overflow-hidden rounded-2xl border border-[#E8E9F1] bg-white lg:block">
+          <div className="hidden overflow-hidden rounded-2xl border border-border bg-surface lg:block">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[900px] border-collapse text-left">
-              <thead className="bg-[#F6F7FB] border-b border-[#E8E9F1] text-xs font-medium text-[#74778B]">
+              <thead className="bg-surface-muted border-b border-border text-xs font-medium text-text-secondary">
                 <tr>
                   <th className="py-3 px-4">Waktu & ID</th>
                   <th className="py-3 px-4">Deskripsi</th>
@@ -326,7 +326,7 @@ export function TransactionsView({
                   <th className="py-3 px-4 text-right">Nominal</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E8E9F1] text-sm">
+              <tbody className="divide-y divide-border text-sm">
                 {filtered.map((tx) => {
                   const cat = state.categories.find((c) => c.id === tx.categoryId);
                   const srcAcc = accountsWithBalances.find((a) => a.id === tx.accountId);
@@ -338,44 +338,44 @@ export function TransactionsView({
                     <tr
                       key={tx.id}
                       onClick={() => onSelectTransaction(tx)}
-                      className="hover:bg-[#F6F7FB]/80 cursor-pointer transition-colors"
+                      className="hover:bg-surface-muted/80 cursor-pointer transition-colors"
                     >
                       <td className="py-3 px-4 whitespace-nowrap">
-                        <p className="text-xs font-medium text-[#202238]">
+                        <p className="text-xs font-medium text-text-primary">
                           {formatDateID(tx.date, true)}
                         </p>
-                        <p className="text-[11px] font-mono text-[#74778B] mt-0.5">{tx.id}</p>
+                        <p className="text-[11px] font-mono text-text-secondary mt-0.5">{tx.id}</p>
                       </td>
                       <td className="py-3 px-4 max-w-[240px]">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-medium text-[#202238] truncate">
+                          <span className="font-medium text-text-primary truncate">
                             {tx.description}
                           </span>
                           {tx.attachmentIds.length > 0 && (
                             <Paperclip
-                              className="w-3.5 h-3.5 text-[#6655D9] shrink-0"
+                              className="w-3.5 h-3.5 text-primary shrink-0"
                               aria-label="Ada bukti transaksi"
                             />
                           )}
                         </div>
                         {tx.note && (
-                          <p className="text-xs text-[#74778B] truncate mt-0.5">{tx.note}</p>
+                          <p className="text-xs text-text-secondary truncate mt-0.5">{tx.note}</p>
                         )}
                       </td>
-                      <td className="py-3 px-4 whitespace-nowrap text-xs text-[#74778B]">
-                        <span className="text-[#202238] font-medium">
+                      <td className="py-3 px-4 whitespace-nowrap text-xs text-text-secondary">
+                        <span className="text-text-primary font-medium">
                           {cat?.name || getTransactionTypeLabel(tx.type)}
                         </span>
-                        <span className="block text-[11px] text-[#74778B]">
+                        <span className="block text-[11px] text-text-secondary">
                           {getTransactionTypeLabel(tx.type)}
                         </span>
                       </td>
-                      <td className="py-3 px-4 whitespace-nowrap text-xs text-[#202238]">
+                      <td className="py-3 px-4 whitespace-nowrap text-xs text-text-primary">
                         {tx.type === 'transfer'
                           ? `${srcAcc?.name || '?'} → ${dstAcc?.name || '?'}`
                           : srcAcc?.name || '-'}
                       </td>
-                      <td className="py-3 px-4 whitespace-nowrap text-xs text-[#74778B]">
+                      <td className="py-3 px-4 whitespace-nowrap text-xs text-text-secondary">
                         {tx.source === 'import'
                           ? 'Impor CSV'
                           : tx.source === 'system'
@@ -385,10 +385,10 @@ export function TransactionsView({
                       <td
                         className={`py-3 px-4 whitespace-nowrap text-right font-mono font-semibold tabular-nums ${
                           tx.type === 'income'
-                            ? 'text-[#16A779]'
+                            ? 'text-income'
                             : tx.type === 'expense'
-                            ? 'text-[#E65378]'
-                            : 'text-[#202238]'
+                            ? 'text-expense'
+                            : 'text-text-primary'
                         }`}
                       >
                         {tx.type === 'adjustment'
@@ -407,7 +407,7 @@ export function TransactionsView({
           </div>
 
           {/* Mobile & Tablet Touch Card List */}
-          <div className="lg:hidden bg-white border border-[#E8E9F1] rounded-2xl divide-y divide-[#E8E9F1]">
+          <div className="lg:hidden bg-surface border border-border rounded-2xl divide-y divide-border">
             {filtered.map((tx) => {
               const cat = state.categories.find((c) => c.id === tx.categoryId);
               const srcAcc = accountsWithBalances.find((a) => a.id === tx.accountId);
@@ -420,16 +420,16 @@ export function TransactionsView({
                   key={tx.id}
                   type="button"
                   onClick={() => onSelectTransaction(tx)}
-                  className="w-full min-h-[64px] px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-[#F6F7FB] transition-colors"
+                  className="w-full min-h-[64px] px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-surface-muted transition-colors"
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                         tx.type === 'income'
-                          ? 'bg-[#E8F8F1] text-[#16A779]'
+                          ? 'bg-income-soft text-income'
                           : tx.type === 'expense'
-                          ? 'bg-[#FFF0F3] text-[#E65378]'
-                          : 'bg-[#EEF6FF] text-[#3989D8]'
+                          ? 'bg-expense-soft text-expense'
+                          : 'bg-info-soft text-info'
                       }`}
                     >
                       {tx.type === 'income' ? (
@@ -442,31 +442,31 @@ export function TransactionsView({
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <p className="text-sm font-medium text-[#202238] truncate">
+                        <p className="text-sm font-medium text-text-primary truncate">
                           {tx.description}
                         </p>
                         {tx.attachmentIds.length > 0 && (
-                          <Paperclip className="w-3.5 h-3.5 text-[#6655D9] shrink-0" />
+                          <Paperclip className="w-3.5 h-3.5 text-primary shrink-0" />
                         )}
                       </div>
-                      <p className="text-xs text-[#74778B] truncate mt-0.5">
+                      <p className="text-xs text-text-secondary truncate mt-0.5">
                         {cat?.name || getTransactionTypeLabel(tx.type)} ·{' '}
                         {tx.type === 'transfer'
                           ? `${srcAcc?.name || '?'} → ${dstAcc?.name || '?'}`
                           : srcAcc?.name || '-'}{' '}
                         · {formatDateID(tx.date)}
                       </p>
-                      <p className="text-[11px] font-mono text-[#8B8EA3] mt-0.5">{tx.id}</p>
+                      <p className="text-[11px] font-mono text-neutral mt-0.5">{tx.id}</p>
                     </div>
                   </div>
 
                   <span
                     className={`font-mono text-sm font-semibold tabular-nums shrink-0 ${
                       tx.type === 'income'
-                        ? 'text-[#16A779]'
+                        ? 'text-income'
                         : tx.type === 'expense'
-                        ? 'text-[#E65378]'
-                        : 'text-[#202238]'
+                        ? 'text-expense'
+                        : 'text-text-primary'
                     }`}
                   >
                     {tx.type === 'adjustment'

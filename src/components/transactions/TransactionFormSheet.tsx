@@ -222,24 +222,24 @@ export function TransactionFormSheet({
     <div
       ref={dialogRef}
       tabIndex={-1}
-      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-[#202238]/45 backdrop-blur-[2px] p-0 md:p-4 focus:outline-none"
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-overlay/45 backdrop-blur-[2px] p-0 md:p-4 focus:outline-none"
       role="dialog"
       aria-modal="true"
       aria-labelledby="tx-form-title"
     >
-      <div className="modal-panel w-full md:max-w-xl bg-white border border-[#E8E9F1] rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col">
+      <div className="modal-panel w-full md:max-w-xl bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col">
         {/* Grab handle on mobile */}
         <div className="md:hidden pt-3 pb-1 flex justify-center">
-          <div className="w-10 h-1.5 rounded-full bg-[#E8E9F1]" />
+          <div className="w-10 h-1.5 rounded-full bg-border" />
         </div>
 
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[#E8E9F1]">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border">
           <div>
-            <h2 id="tx-form-title" className="text-lg font-semibold text-[#202238]">
+            <h2 id="tx-form-title" className="text-lg font-semibold text-text-primary">
               {editingTransaction ? 'Ubah Transaksi' : 'Catat Transaksi Baru'}
             </h2>
             {editingTransaction && (
-              <p className="text-xs font-mono text-[#74778B] mt-0.5">
+              <p className="text-xs font-mono text-text-secondary mt-0.5">
                 ID: {editingTransaction.id}
               </p>
             )}
@@ -247,7 +247,7 @@ export function TransactionFormSheet({
           <button
             type="button"
             onClick={onClose}
-            className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB] hover:text-[#202238] transition-colors"
+            className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted hover:text-text-primary transition-colors"
             aria-label="Tutup form transaksi"
           >
             <X className="w-5 h-5" />
@@ -256,7 +256,7 @@ export function TransactionFormSheet({
 
         {activeAccounts.length === 0 ? (
           <div className="p-6 text-center space-y-4">
-            <p className="text-sm text-[#74778B]">
+            <p className="text-sm text-text-secondary">
               Anda belum memiliki akun keuangan aktif (mis. Rekening Bank, E-Wallet, atau Tunai).
               Buat akun pertama Anda sebelum mencatat transaksi.
             </p>
@@ -264,7 +264,7 @@ export function TransactionFormSheet({
               <button
                 type="button"
                 onClick={onClose}
-                className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium text-[#202238]"
+                className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium text-text-primary"
               >
                 Tutup
               </button>
@@ -275,7 +275,7 @@ export function TransactionFormSheet({
                     onClose();
                     onOpenAccounts();
                   }}
-                  className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] text-white text-sm font-medium hover:bg-[#4938B5]"
+                  className="min-h-[44px] px-5 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-dark"
                 >
                   Buat Akun Pertama
                 </button>
@@ -285,14 +285,14 @@ export function TransactionFormSheet({
         ) : (
           <form onSubmit={handleSubmit} className="overflow-y-auto px-5 sm:px-6 py-5 space-y-4">
             {/* Segmented Type Selector */}
-            <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#F6F7FB] rounded-xl border border-[#E8E9F1]">
+            <div className="grid grid-cols-3 gap-1.5 p-1 bg-surface-muted rounded-xl border border-border">
               <button
                 type="button"
                 onClick={() => setTxType('expense')}
                 className={`min-h-[44px] flex items-center justify-center gap-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                   txType === 'expense'
-                    ? 'bg-white text-[#E65378] shadow-sm'
-                    : 'text-[#74778B] hover:text-[#202238]'
+                    ? 'bg-surface text-expense shadow-sm'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 <TrendingDown className="w-4 h-4 shrink-0" />
@@ -303,8 +303,8 @@ export function TransactionFormSheet({
                 onClick={() => setTxType('income')}
                 className={`min-h-[44px] flex items-center justify-center gap-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                   txType === 'income'
-                    ? 'bg-white text-[#16A779] shadow-sm'
-                    : 'text-[#74778B] hover:text-[#202238]'
+                    ? 'bg-surface text-income shadow-sm'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 <TrendingUp className="w-4 h-4 shrink-0" />
@@ -315,8 +315,8 @@ export function TransactionFormSheet({
                 onClick={() => setTxType('transfer')}
                 className={`min-h-[44px] flex items-center justify-center gap-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                   txType === 'transfer'
-                    ? 'bg-white text-[#3989D8] shadow-sm'
-                    : 'text-[#74778B] hover:text-[#202238]'
+                    ? 'bg-surface text-info shadow-sm'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 <ArrowLeftRight className="w-4 h-4 shrink-0" />
@@ -325,7 +325,7 @@ export function TransactionFormSheet({
             </div>
 
             {txType === 'transfer' && (
-              <p className="text-xs text-[#74778B] bg-[#F6F7FB] px-3 py-2 rounded-xl border border-[#E8E9F1]">
+              <p className="text-xs text-text-secondary bg-surface-muted px-3 py-2 rounded-xl border border-border">
                 Transfer internal memindahkan saldo antar-akun Anda sendiri dan tidak dihitung
                 sebagai pemasukan maupun pengeluaran.
               </p>
@@ -333,11 +333,11 @@ export function TransactionFormSheet({
 
             {/* Amount */}
             <div>
-              <label htmlFor="tx-amount" className="block text-xs font-medium text-[#74778B] mb-1.5">
+              <label htmlFor="tx-amount" className="block text-xs font-medium text-text-secondary mb-1.5">
                 Nominal (IDR) *
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-mono font-semibold text-[#74778B]">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-mono font-semibold text-text-secondary">
                   Rp
                 </span>
                 <input
@@ -348,7 +348,7 @@ export function TransactionFormSheet({
                   value={parsedAmount > 0 ? new Intl.NumberFormat('id-ID').format(parsedAmount) : ''}
                   onChange={(e) => setAmountInput(e.target.value)}
                   placeholder="0"
-                  className="w-full min-h-[48px] pl-10 pr-4 py-2.5 rounded-xl border border-[#E8E9F1] bg-white font-mono tabular-nums text-lg font-semibold text-[#202238] focus:outline-none focus:border-[#6655D9] focus:ring-2 focus:ring-[#6655D9]/15"
+                  className="w-full min-h-[48px] pl-10 pr-4 py-2.5 rounded-xl border border-border bg-surface font-mono tabular-nums text-lg font-semibold text-text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
                   required
                 />
               </div>
@@ -357,14 +357,14 @@ export function TransactionFormSheet({
             {/* Accounts */}
             <div className={`grid gap-3 ${txType === 'transfer' ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
               <div>
-                <label htmlFor="tx-account" className="block text-xs font-medium text-[#74778B] mb-1.5">
+                <label htmlFor="tx-account" className="block text-xs font-medium text-text-secondary mb-1.5">
                   {txType === 'transfer' ? 'Dari Akun *' : 'Akun *'}
                 </label>
                 <select
                   id="tx-account"
                   value={accountId}
                   onChange={(e) => setAccountId(e.target.value)}
-                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary focus:outline-none focus:border-primary"
                   required
                 >
                   {activeAccounts.map((acc) => (
@@ -377,14 +377,14 @@ export function TransactionFormSheet({
 
               {txType === 'transfer' && (
                 <div>
-                  <label htmlFor="tx-dest-account" className="block text-xs font-medium text-[#74778B] mb-1.5">
+                  <label htmlFor="tx-dest-account" className="block text-xs font-medium text-text-secondary mb-1.5">
                     Ke Akun Tujuan *
                   </label>
                   <select
                     id="tx-dest-account"
                     value={destinationAccountId}
                     onChange={(e) => setDestinationAccountId(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary focus:outline-none focus:border-primary"
                     required
                   >
                     <option value="">Pilih akun tujuan</option>
@@ -404,9 +404,9 @@ export function TransactionFormSheet({
             {willBeNegative && sourceAccount && (
               <div
                 role="alert"
-                className="flex items-start gap-2.5 px-3.5 py-3 rounded-xl bg-[#FFF8EB] border border-[#E5A13A]/40 text-xs text-[#8A5A10]"
+                className="flex items-start gap-2.5 px-3.5 py-3 rounded-xl bg-warning-soft border border-warning/40 text-xs text-warning-strong"
               >
-                <AlertTriangle className="w-4 h-4 text-[#E5A13A] shrink-0 mt-0.5" />
+                <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold">Peringatan Saldo Negatif:</span> Saldo{' '}
                   <strong>{sourceAccount.name}</strong> akan menjadi{' '}
@@ -422,14 +422,14 @@ export function TransactionFormSheet({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {txType !== 'transfer' && (
                 <div>
-                  <label htmlFor="tx-category" className="block text-xs font-medium text-[#74778B] mb-1.5">
+                  <label htmlFor="tx-category" className="block text-xs font-medium text-text-secondary mb-1.5">
                     Kategori *
                   </label>
                   <select
                     id="tx-category"
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary focus:outline-none focus:border-primary"
                     required
                   >
                     {filteredCategories.map((cat) => (
@@ -442,7 +442,7 @@ export function TransactionFormSheet({
               )}
 
               <div className={txType === 'transfer' ? 'sm:col-span-2' : ''}>
-                <label htmlFor="tx-date" className="block text-xs font-medium text-[#74778B] mb-1.5">
+                <label htmlFor="tx-date" className="block text-xs font-medium text-text-secondary mb-1.5">
                   Tanggal & Waktu *
                 </label>
                 <input
@@ -450,7 +450,7 @@ export function TransactionFormSheet({
                   type="datetime-local"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary focus:outline-none focus:border-primary"
                   required
                 />
               </div>
@@ -458,7 +458,7 @@ export function TransactionFormSheet({
 
             {/* Description */}
             <div>
-              <label htmlFor="tx-desc" className="block text-xs font-medium text-[#74778B] mb-1.5">
+              <label htmlFor="tx-desc" className="block text-xs font-medium text-text-secondary mb-1.5">
                 Deskripsi / Nama Transaksi *
               </label>
               <input
@@ -473,14 +473,14 @@ export function TransactionFormSheet({
                     ? 'Contoh: Gaji bulanan atau pembayaran klien'
                     : 'Contoh: Makan siang, belanja dapur, listrik'
                 }
-                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary focus:outline-none focus:border-primary"
                 required
               />
             </div>
 
             {/* Note */}
             <div>
-              <label htmlFor="tx-note" className="block text-xs font-medium text-[#74778B] mb-1.5">
+              <label htmlFor="tx-note" className="block text-xs font-medium text-text-secondary mb-1.5">
                 Catatan Tambahan (Opsional)
               </label>
               <textarea
@@ -489,21 +489,21 @@ export function TransactionFormSheet({
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Detail merchant, nomor referensi, atau keterangan tambahan..."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238] focus:outline-none focus:border-[#6655D9]"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary focus:outline-none focus:border-primary"
               />
             </div>
 
             {/* Attachment Uploader */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-medium text-[#74778B]">
+                <span className="text-xs font-medium text-text-secondary">
                   Bukti Transaksi (JPG, PNG, WEBP, PDF · Maks 5 MB)
                 </span>
-                <span className="text-xs text-[#74778B]">{attachments.length}/3</span>
+                <span className="text-xs text-text-secondary">{attachments.length}/3</span>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <label className="min-h-[44px] px-3.5 py-2 rounded-xl border border-dashed border-[#6655D9]/50 bg-[#F0EDFF]/50 hover:bg-[#F0EDFF] text-[#4938B5] text-xs font-medium inline-flex items-center gap-2 cursor-pointer transition-colors">
+                <label className="min-h-[44px] px-3.5 py-2 rounded-xl border border-dashed border-primary/50 bg-primary-soft/50 hover:bg-primary-soft text-primary-dark text-xs font-medium inline-flex items-center gap-2 cursor-pointer transition-colors">
                   <Paperclip className="w-4 h-4" />
                   <span>{uploading ? 'Mengunggah...' : 'Pilih File / Struk'}</span>
                   <input
@@ -516,7 +516,7 @@ export function TransactionFormSheet({
                   />
                 </label>
 
-                <label className="sm:hidden min-h-[44px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] bg-[#F6F7FB] text-[#202238] text-xs font-medium inline-flex items-center gap-2 cursor-pointer">
+                <label className="sm:hidden min-h-[44px] px-3.5 py-2 rounded-xl border border-border bg-surface-muted text-text-primary text-xs font-medium inline-flex items-center gap-2 cursor-pointer">
                   <Camera className="w-4 h-4" />
                   <span>Kamera</span>
                   <input
@@ -535,25 +535,25 @@ export function TransactionFormSheet({
                   {attachments.map((att) => (
                     <div
                       key={att.id}
-                      className="flex items-center justify-between gap-2 p-2 rounded-xl border border-[#E8E9F1] bg-[#F6F7FB]"
+                      className="flex items-center justify-between gap-2 p-2 rounded-xl border border-border bg-surface-muted"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         {att.mimeType.startsWith('image/') ? (
                           <img
                             src={att.dataUrl}
                             alt={att.fileName}
-                            className="w-10 h-10 rounded-lg object-cover shrink-0 border border-[#E8E9F1]"
+                            className="w-10 h-10 rounded-lg object-cover shrink-0 border border-border"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-lg bg-white border border-[#E8E9F1] flex items-center justify-center text-[#6655D9] shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-surface border border-border flex items-center justify-center text-primary shrink-0">
                             <FileText className="w-5 h-5" />
                           </div>
                         )}
                         <div className="min-w-0">
-                          <p className="text-xs font-medium text-[#202238] truncate">
+                          <p className="text-xs font-medium text-text-primary truncate">
                             {att.fileName}
                           </p>
-                          <p className="text-[11px] text-[#74778B]">
+                          <p className="text-[11px] text-text-secondary">
                             {Math.round(att.size / 1024)} KB
                           </p>
                         </div>
@@ -561,7 +561,7 @@ export function TransactionFormSheet({
                       <button
                         type="button"
                         onClick={() => handleRemoveAttachment(att.id)}
-                        className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-[#74778B] hover:text-[#E65378] hover:bg-white transition-colors"
+                        className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-text-secondary hover:text-expense hover:bg-surface transition-colors"
                         aria-label={`Hapus lampiran ${att.fileName}`}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -575,7 +575,7 @@ export function TransactionFormSheet({
             {formError && (
               <div
                 role="alert"
-                className="px-3.5 py-2.5 rounded-xl bg-[#FFF0F3] border border-[#E65378]/30 text-xs font-medium text-[#E65378]"
+                className="px-3.5 py-2.5 rounded-xl bg-expense-soft border border-expense/30 text-xs font-medium text-expense"
               >
                 {formError}
               </div>
@@ -585,14 +585,14 @@ export function TransactionFormSheet({
               <button
                 type="button"
                 onClick={onClose}
-                className="min-h-[44px] px-4 py-2.5 rounded-xl border border-[#E8E9F1] text-sm font-medium text-[#202238] hover:bg-[#F6F7FB] transition-colors"
+                className="min-h-[44px] px-4 py-2.5 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-surface-muted transition-colors"
               >
                 Batal
               </button>
               <button
                 type="submit"
                 disabled={uploading}
-                className="min-h-[44px] px-6 py-2.5 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] disabled:opacity-50 text-white text-sm font-medium transition-colors"
+                className="min-h-[44px] px-6 py-2.5 rounded-xl bg-primary hover:bg-primary-dark disabled:opacity-50 text-white text-sm font-medium transition-colors"
               >
                 {editingTransaction ? 'Simpan Perubahan' : 'Simpan Transaksi'}
               </button>

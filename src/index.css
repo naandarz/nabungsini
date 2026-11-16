@@ -1,33 +1,108 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Runtime palette. Values are swapped by the `.dark` class on <html>, so every
+   semantic utility below re-themes without touching component code. */
+:root {
+  --app-bg: #f6f7fb;
+  --app-surface: #ffffff;
+  --app-surface-muted: #f6f7fb;
+  --app-text: #202238;
+  --app-text-secondary: #74778b;
+  --app-text-subtle: #8b8ea3;
+  --app-border: #e8e9f1;
+  --app-primary: #6655d9;
+  --app-primary-dark: #4938b5;
+  --app-primary-soft: #f0edff;
+  --app-income: #16a779;
+  --app-income-soft: #e8f8f1;
+  --app-expense: #e65378;
+  --app-expense-soft: #fff0f3;
+  --app-expense-strong: #d13f64;
+  --app-warning: #e5a13a;
+  --app-warning-soft: #fff8eb;
+  --app-warning-strong: #8a5a10;
+  --app-info: #3989d8;
+  --app-info-soft: #eef6ff;
+  --app-neutral: #8b8ea3;
+  --app-overlay: #202238;
+  color-scheme: light;
+}
+
+.dark {
+  --app-bg: #0e0f15;
+  --app-surface: #171925;
+  --app-surface-muted: #1f2231;
+  --app-text: #ecedf6;
+  --app-text-secondary: #a2a7bc;
+  --app-text-subtle: #7e839a;
+  --app-border: #2b2e40;
+  --app-primary: #9384f7;
+  --app-primary-dark: #7a69ee;
+  --app-primary-soft: #262146;
+  --app-income: #3acb9b;
+  --app-income-soft: #10291f;
+  --app-expense: #ff7c9c;
+  --app-expense-soft: #2e1620;
+  --app-expense-strong: #ff9db5;
+  --app-warning: #f2b85c;
+  --app-warning-soft: #2a2113;
+  --app-warning-strong: #f5c77e;
+  --app-info: #6faeee;
+  --app-info-soft: #142031;
+  --app-neutral: #9ca1b6;
+  --app-overlay: #05060b;
+  color-scheme: dark;
+}
+
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-primary: #6655D9;
-  --color-primary-dark: #4938B5;
-  --color-primary-soft: #F0EDFF;
-  --color-background: #F6F7FB;
-  --color-surface: #FFFFFF;
-  --color-text-primary: #202238;
-  --color-text-secondary: #74778B;
-  --color-border: #E8E9F1;
-  --color-income: #16A779;
-  --color-income-soft: #E8F8F1;
-  --color-expense: #E65378;
-  --color-expense-soft: #FFF0F3;
-  --color-warning: #E5A13A;
-  --color-info: #3989D8;
-  --color-neutral: #8B8EA3;
+  --color-primary: var(--app-primary);
+  --color-primary-dark: var(--app-primary-dark);
+  --color-primary-soft: var(--app-primary-soft);
+  --color-background: var(--app-bg);
+  --color-surface: var(--app-surface);
+  --color-surface-muted: var(--app-surface-muted);
+  --color-text-primary: var(--app-text);
+  --color-text-secondary: var(--app-text-secondary);
+  --color-border: var(--app-border);
+  --color-income: var(--app-income);
+  --color-income-soft: var(--app-income-soft);
+  --color-expense: var(--app-expense);
+  --color-expense-soft: var(--app-expense-soft);
+  --color-expense-strong: var(--app-expense-strong);
+  --color-warning: var(--app-warning);
+  --color-warning-soft: var(--app-warning-soft);
+  --color-warning-strong: var(--app-warning-strong);
+  --color-info: var(--app-info);
+  --color-info-soft: var(--app-info-soft);
+  --color-neutral: var(--app-neutral);
+  --color-overlay: var(--app-overlay);
 }
 
 @layer base {
   html {
     font-family: var(--font-sans);
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
+    background-color: var(--app-bg);
+    color: var(--app-text);
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+    background-color: var(--app-bg);
+  }
+
+  /* Keep native form controls (select popups, date pickers, scrollbars)
+     consistent with the active theme. */
+  select,
+  input,
+  textarea {
+    color-scheme: inherit;
   }
 
   .tabular-nums {
@@ -41,9 +116,9 @@
     border-radius: 4px;
   }
 
-  /* Re-enable native scrolling for nested scroll areas after scroll-lock. */
-  body {
-    text-rendering: optimizeLegibility;
+  ::selection {
+    background-color: color-mix(in oklab, var(--app-primary) 22%, transparent);
+    color: var(--app-text);
   }
 }
 
@@ -80,6 +155,43 @@
   .nav-drawer-panel {
     animation: drawer-enter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  /* Interactive surfaces: a quiet lift on hover, a crisp press on tap. */
+  .lift {
+    transition:
+      transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.18s ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -16px rgb(32 34 56 / 0.45);
+  }
+
+  .lift:active {
+    transform: translateY(0) scale(0.995);
+  }
+
+  .press {
+    transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .press:active {
+    transform: scale(0.96);
+  }
+
+  /* Bars grow up from their baseline instead of snapping into place. */
+  .bar-grow {
+    transform-origin: bottom;
+    animation: bar-grow 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  /* Horizontal progress fills grow from the left edge. */
+  .fill-grow {
+    transform-origin: left;
+    animation: fill-grow 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
 }
 
 @keyframes modal-enter {
@@ -101,6 +213,24 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fill-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 

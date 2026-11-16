@@ -13,9 +13,9 @@ export function CashflowBarChart({ points, periodLabel, hidden = false }: Cashfl
 
   if (points.length === 0) {
     return (
-      <div className="h-52 flex flex-col items-center justify-center text-center border border-dashed border-[#E8E9F1] rounded-xl px-4">
-        <p className="text-sm font-medium text-[#202238]">Belum ada arus kas pada {periodLabel}</p>
-        <p className="text-xs text-[#74778B] mt-1">
+      <div className="h-52 flex flex-col items-center justify-center text-center border border-dashed border-border rounded-xl px-4">
+        <p className="text-sm font-medium text-text-primary">Belum ada arus kas pada {periodLabel}</p>
+        <p className="text-xs text-text-secondary mt-1">
           Grafik pemasukan dan pengeluaran harian akan tampil setelah ada transaksi pada periode ini.
         </p>
       </div>
@@ -32,19 +32,19 @@ export function CashflowBarChart({ points, periodLabel, hidden = false }: Cashfl
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs text-[#74778B]">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs text-text-secondary">
         <div className="flex items-center gap-4">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-sm bg-[#16A779]" aria-hidden="true" />
+            <span className="w-2.5 h-2.5 rounded-sm bg-income" aria-hidden="true" />
             Pemasukan (IDR)
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-sm bg-[#E65378]" aria-hidden="true" />
+            <span className="w-2.5 h-2.5 rounded-sm bg-expense" aria-hidden="true" />
             Pengeluaran (IDR)
           </span>
         </div>
         {activePoint ? (
-          <div className="font-mono tabular-nums text-[#202238]">
+          <div className="font-mono tabular-nums text-text-primary">
             {formatDateID(activePoint.date)} · +{formatIDR(activePoint.income, { hidden })} · −
             {formatIDR(activePoint.expense, { hidden })}
           </div>
@@ -53,7 +53,7 @@ export function CashflowBarChart({ points, periodLabel, hidden = false }: Cashfl
         )}
       </div>
 
-      <div className="relative h-52 flex items-end gap-1.5 sm:gap-2.5 pt-4 pb-6 border-b border-[#E8E9F1]">
+      <div className="relative h-52 flex items-end gap-1.5 sm:gap-2.5 pt-4 pb-6 border-b border-border">
         {displayPoints.map((pt, idx) => {
           const incPct = Math.max(pt.income > 0 ? 6 : 0, Math.round((pt.income / maxVal) * 100));
           const expPct = Math.max(pt.expense > 0 ? 6 : 0, Math.round((pt.expense / maxVal) * 100));
@@ -66,21 +66,21 @@ export function CashflowBarChart({ points, periodLabel, hidden = false }: Cashfl
               onMouseLeave={() => setHoveredIdx(null)}
               onClick={() => setHoveredIdx(isActive ? null : idx)}
               className={`group flex-1 min-w-0 h-full flex flex-col justify-end items-center relative focus:outline-none rounded-lg px-0.5 transition-colors ${
-                isActive ? 'bg-[#F6F7FB]' : 'hover:bg-[#F6F7FB]/70'
+                isActive ? 'bg-surface-muted' : 'hover:bg-surface-muted/70'
               }`}
               aria-label={`${formatDateID(pt.date)}: Pemasukan ${formatIDR(pt.income)}, Pengeluaran ${formatIDR(pt.expense)}`}
             >
               <div className="w-full h-full flex items-end justify-center gap-0.5 sm:gap-1 pb-1">
                 <div
-                  className="w-2 sm:w-3 rounded-t bg-[#16A779] transition-all duration-150"
+                  className="w-2 sm:w-3 rounded-t bg-income transition-all duration-150"
                   style={{ height: `${incPct}%` }}
                 />
                 <div
-                  className="w-2 sm:w-3 rounded-t bg-[#E65378] transition-all duration-150"
+                  className="w-2 sm:w-3 rounded-t bg-expense transition-all duration-150"
                   style={{ height: `${expPct}%` }}
                 />
               </div>
-              <span className="absolute -bottom-5 text-[10px] font-mono tabular-nums text-[#74778B] truncate max-w-full">
+              <span className="absolute -bottom-5 text-[10px] font-mono tabular-nums text-text-secondary truncate max-w-full">
                 {pt.label}
               </span>
             </button>
@@ -102,9 +102,9 @@ export function MonthlyComparisonChart({ series, hidden = false }: MonthlyCompar
 
   if (!hasAny) {
     return (
-      <div className="h-56 flex flex-col items-center justify-center text-center border border-dashed border-[#E8E9F1] rounded-xl px-4">
-        <p className="text-sm font-medium text-[#202238]">Belum ada perbandingan bulanan</p>
-        <p className="text-xs text-[#74778B] mt-1">
+      <div className="h-56 flex flex-col items-center justify-center text-center border border-dashed border-border rounded-xl px-4">
+        <p className="text-sm font-medium text-text-primary">Belum ada perbandingan bulanan</p>
+        <p className="text-xs text-text-secondary mt-1">
           Catat pemasukan atau pengeluaran untuk melihat tren 6 bulan terakhir.
         </p>
       </div>
@@ -117,25 +117,25 @@ export function MonthlyComparisonChart({ series, hidden = false }: MonthlyCompar
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4 text-xs">
-        <div className="flex items-center gap-4 text-[#74778B]">
+        <div className="flex items-center gap-4 text-text-secondary">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-sm bg-[#16A779]" aria-hidden="true" />
+            <span className="w-2.5 h-2.5 rounded-sm bg-income" aria-hidden="true" />
             Pemasukan
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-sm bg-[#E65378]" aria-hidden="true" />
+            <span className="w-2.5 h-2.5 rounded-sm bg-expense" aria-hidden="true" />
             Pengeluaran
           </span>
         </div>
         {active && (
-          <div className="font-mono tabular-nums text-[#202238]">
+          <div className="font-mono tabular-nums text-text-primary">
             {active.label}: +{formatIDR(active.income, { hidden })} / −
             {formatIDR(active.expense, { hidden })}
           </div>
         )}
       </div>
 
-      <div className="h-56 flex items-end gap-2 sm:gap-4 pt-2 pb-7 border-b border-[#E8E9F1]">
+      <div className="h-56 flex items-end gap-2 sm:gap-4 pt-2 pb-7 border-b border-border">
         {series.map((item, idx) => {
           const incPct = Math.max(item.income > 0 ? 5 : 0, Math.round((item.income / maxVal) * 100));
           const expPct = Math.max(
@@ -150,22 +150,22 @@ export function MonthlyComparisonChart({ series, hidden = false }: MonthlyCompar
               onMouseEnter={() => setActiveIdx(idx)}
               onClick={() => setActiveIdx(idx)}
               className={`flex-1 h-full flex flex-col justify-end items-center relative rounded-xl px-1 transition-colors ${
-                isSelected ? 'bg-[#F6F7FB]' : 'hover:bg-[#F6F7FB]/60'
+                isSelected ? 'bg-surface-muted' : 'hover:bg-surface-muted/60'
               }`}
             >
               <div className="w-full h-full flex items-end justify-center gap-1.5 pb-1">
                 <div
-                  className="w-3 sm:w-5 rounded-t-md bg-[#16A779] transition-all duration-150"
+                  className="w-3 sm:w-5 rounded-t-md bg-income transition-all duration-150"
                   style={{ height: `${incPct}%` }}
                   title={`Pemasukan: ${formatCompactIDR(item.income)}`}
                 />
                 <div
-                  className="w-3 sm:w-5 rounded-t-md bg-[#E65378] transition-all duration-150"
+                  className="w-3 sm:w-5 rounded-t-md bg-expense transition-all duration-150"
                   style={{ height: `${expPct}%` }}
                   title={`Pengeluaran: ${formatCompactIDR(item.expense)}`}
                 />
               </div>
-              <span className="absolute -bottom-6 text-[11px] font-medium text-[#74778B] whitespace-nowrap">
+              <span className="absolute -bottom-6 text-[11px] font-medium text-text-secondary whitespace-nowrap">
                 {item.label}
               </span>
             </button>
@@ -189,9 +189,9 @@ export function CategoryBreakdownList({
 }: CategoryBreakdownListProps) {
   if (items.length === 0) {
     return (
-      <div className="py-8 text-center border border-dashed border-[#E8E9F1] rounded-xl px-4">
-        <p className="text-sm font-medium text-[#202238]">Belum ada pengeluaran pada periode ini</p>
-        <p className="text-xs text-[#74778B] mt-1">
+      <div className="py-8 text-center border border-dashed border-border rounded-xl px-4">
+        <p className="text-sm font-medium text-text-primary">Belum ada pengeluaran pada periode ini</p>
+        <p className="text-xs text-text-secondary mt-1">
           Transfer internal tidak dihitung dalam pengeluaran kategori.
         </p>
       </div>
@@ -209,17 +209,17 @@ export function CategoryBreakdownList({
                 style={{ backgroundColor: item.color }}
                 aria-hidden="true"
               />
-              <span className="font-medium text-[#202238] truncate">{item.name}</span>
-              <span className="text-xs text-[#74778B] shrink-0">· {item.count}x</span>
+              <span className="font-medium text-text-primary truncate">{item.name}</span>
+              <span className="text-xs text-text-secondary shrink-0">· {item.count}x</span>
             </div>
             <div className="font-mono tabular-nums text-right shrink-0">
-              <span className="font-medium text-[#202238]">
+              <span className="font-medium text-text-primary">
                 {formatIDR(item.amount, { hidden })}
               </span>
-              <span className="text-xs text-[#74778B] ml-2">({item.percentage}%)</span>
+              <span className="text-xs text-text-secondary ml-2">({item.percentage}%)</span>
             </div>
           </div>
-          <div className="h-2 w-full rounded-full bg-[#F6F7FB] overflow-hidden">
+          <div className="h-2 w-full rounded-full bg-surface-muted overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-200"
               style={{

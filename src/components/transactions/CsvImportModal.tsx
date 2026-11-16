@@ -150,25 +150,25 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
     <div
       ref={dialogRef}
       tabIndex={-1}
-      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-[#202238]/45 backdrop-blur-[2px] p-0 md:p-4 focus:outline-none"
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-overlay/45 backdrop-blur-[2px] p-0 md:p-4 focus:outline-none"
       role="dialog"
       aria-modal="true"
       aria-labelledby="csv-import-title"
     >
-      <div className="modal-panel w-full md:max-w-3xl bg-white border border-[#E8E9F1] rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col">
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[#E8E9F1]">
+      <div className="modal-panel w-full md:max-w-3xl bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border">
           <div>
-            <h2 id="csv-import-title" className="text-lg font-semibold text-[#202238]">
+            <h2 id="csv-import-title" className="text-lg font-semibold text-text-primary">
               Impor Mutasi CSV
             </h2>
-            <p className="text-xs text-[#74778B] mt-0.5">
+            <p className="text-xs text-text-secondary mt-0.5">
               Langkah {step} dari 3 · Pratinjau dan deteksi duplikasi otomatis
             </p>
           </div>
           <button
             type="button"
             onClick={handleClose}
-            className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-xl text-[#74778B] hover:bg-[#F6F7FB]"
+            className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-xl text-text-secondary hover:bg-surface-muted"
             aria-label="Tutup impor CSV"
           >
             <X className="w-5 h-5" />
@@ -178,8 +178,8 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
         <div className="overflow-y-auto px-5 sm:px-6 py-5 space-y-5">
           {activeAccounts.length === 0 ? (
             <div className="p-6 text-center space-y-2">
-              <p className="text-sm font-medium text-[#202238]">Belum ada akun tujuan</p>
-              <p className="text-xs text-[#74778B]">
+              <p className="text-sm font-medium text-text-primary">Belum ada akun tujuan</p>
+              <p className="text-xs text-text-secondary">
                 Buat minimal satu akun rekening atau e-wallet sebelum mengimpor mutasi CSV.
               </p>
             </div>
@@ -190,7 +190,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                   <div>
                     <label
                       htmlFor="csv-target-account"
-                      className="block text-xs font-medium text-[#74778B] mb-1.5"
+                      className="block text-xs font-medium text-text-secondary mb-1.5"
                     >
                       Akun Tujuan Impor *
                     </label>
@@ -199,7 +199,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                       value={selectedAccountId}
                       onChange={(e) => setTargetAccountId(e.target.value)}
                       data-autofocus
-                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8E9F1] bg-white text-sm text-[#202238]"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-border bg-surface text-sm text-text-primary"
                     >
                       {activeAccounts.map((acc) => (
                         <option key={acc.id} value={acc.id}>
@@ -209,12 +209,12 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                     </select>
                   </div>
 
-                  <label className="block border-2 border-dashed border-[#E8E9F1] hover:border-[#6655D9]/60 rounded-2xl p-8 text-center cursor-pointer bg-[#F6F7FB]/60 transition-colors">
-                    <Upload className="w-8 h-8 text-[#6655D9] mx-auto mb-3" />
-                    <p className="text-sm font-semibold text-[#202238]">
+                  <label className="block border-2 border-dashed border-border hover:border-primary/60 rounded-2xl p-8 text-center cursor-pointer bg-surface-muted/60 transition-colors">
+                    <Upload className="w-8 h-8 text-primary mx-auto mb-3" />
+                    <p className="text-sm font-semibold text-text-primary">
                       Klik untuk memilih file CSV mutasi
                     </p>
-                    <p className="text-xs text-[#74778B] mt-1">
+                    <p className="text-xs text-text-secondary mt-1">
                       Mendukung pemisah koma (,) maupun titik koma (;) dari ekspor Excel
                     </p>
                     <input
@@ -226,13 +226,13 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                   </label>
 
                   <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                    <span className="text-xs text-[#74778B]">
+                    <span className="text-xs text-text-secondary">
                       Butuh contoh struktur kolom yang langsung siap pakai?
                     </span>
                     <button
                       type="button"
                       onClick={handleDownloadSampleCsv}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-[#6655D9] hover:text-[#4938B5]"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-dark"
                     >
                       <Download className="w-3.5 h-3.5" />
                       Unduh Template CSV
@@ -243,17 +243,17 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
 
               {step === 2 && parsedCsv && mapping && (
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-[#F6F7FB] border border-[#E8E9F1] text-xs text-[#202238]">
-                    <FileSpreadsheet className="w-4 h-4 text-[#6655D9] shrink-0" />
+                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-surface-muted border border-border text-xs text-text-primary">
+                    <FileSpreadsheet className="w-4 h-4 text-primary shrink-0" />
                     <span className="font-medium truncate">{fileName}</span>
-                    <span className="text-[#74778B] shrink-0">
+                    <span className="text-text-secondary shrink-0">
                       · {parsedCsv.rows.length} baris ditemukan
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-medium text-[#74778B] mb-1">
+                      <label className="block text-xs font-medium text-text-secondary mb-1">
                         Kolom Tanggal *
                       </label>
                       <select
@@ -261,7 +261,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                         onChange={(e) =>
                           setMapping({ ...mapping, dateIndex: Number(e.target.value) })
                         }
-                        className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm"
+                        className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm"
                       >
                         <option value={-1}>-- Pilih kolom --</option>
                         {parsedCsv.headers.map((h, i) => (
@@ -273,7 +273,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#74778B] mb-1">
+                      <label className="block text-xs font-medium text-text-secondary mb-1">
                         Kolom Deskripsi / Keterangan
                       </label>
                       <select
@@ -281,7 +281,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                         onChange={(e) =>
                           setMapping({ ...mapping, descriptionIndex: Number(e.target.value) })
                         }
-                        className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm"
+                        className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm"
                       >
                         <option value={-1}>-- Tidak ada --</option>
                         {parsedCsv.headers.map((h, i) => (
@@ -293,7 +293,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#74778B] mb-1">
+                      <label className="block text-xs font-medium text-text-secondary mb-1">
                         Kolom Nominal Tunggal
                       </label>
                       <select
@@ -301,7 +301,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                         onChange={(e) =>
                           setMapping({ ...mapping, amountIndex: Number(e.target.value) })
                         }
-                        className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm"
+                        className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm"
                       >
                         <option value={-1}>-- Pakai kolom Debit/Kredit --</option>
                         {parsedCsv.headers.map((h, i) => (
@@ -313,7 +313,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#74778B] mb-1">
+                      <label className="block text-xs font-medium text-text-secondary mb-1">
                         Kolom Jenis (Masuk / Keluar)
                       </label>
                       <select
@@ -321,7 +321,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                         onChange={(e) =>
                           setMapping({ ...mapping, typeIndex: Number(e.target.value) })
                         }
-                        className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm"
+                        className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm"
                       >
                         <option value={-1}>-- Deteksi otomatis --</option>
                         {parsedCsv.headers.map((h, i) => (
@@ -333,7 +333,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#74778B] mb-1">
+                      <label className="block text-xs font-medium text-text-secondary mb-1">
                         Kolom Debit / Keluar (Opsional)
                       </label>
                       <select
@@ -341,7 +341,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                         onChange={(e) =>
                           setMapping({ ...mapping, debitIndex: Number(e.target.value) })
                         }
-                        className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm"
+                        className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm"
                       >
                         <option value={-1}>-- Tidak ada --</option>
                         {parsedCsv.headers.map((h, i) => (
@@ -353,7 +353,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#74778B] mb-1">
+                      <label className="block text-xs font-medium text-text-secondary mb-1">
                         Kolom Kredit / Masuk (Opsional)
                       </label>
                       <select
@@ -361,7 +361,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                         onChange={(e) =>
                           setMapping({ ...mapping, creditIndex: Number(e.target.value) })
                         }
-                        className="w-full min-h-[44px] px-3 rounded-xl border border-[#E8E9F1] text-sm"
+                        className="w-full min-h-[44px] px-3 rounded-xl border border-border text-sm"
                       >
                         <option value={-1}>-- Tidak ada --</option>
                         {parsedCsv.headers.map((h, i) => (
@@ -378,25 +378,25 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
               {step === 3 && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-3 gap-2.5 text-center">
-                    <div className="p-3 rounded-xl bg-[#E8F8F1] border border-[#16A779]/25">
-                      <p className="text-lg font-mono font-bold text-[#16A779]">{validCount}</p>
-                      <p className="text-xs text-[#202238]">Siap Diimpor</p>
+                    <div className="p-3 rounded-xl bg-income-soft border border-income/25">
+                      <p className="text-lg font-mono font-bold text-income">{validCount}</p>
+                      <p className="text-xs text-text-primary">Siap Diimpor</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#FFF8EB] border border-[#E5A13A]/25">
-                      <p className="text-lg font-mono font-bold text-[#E5A13A]">
+                    <div className="p-3 rounded-xl bg-warning-soft border border-warning/25">
+                      <p className="text-lg font-mono font-bold text-warning">
                         {duplicateCount}
                       </p>
-                      <p className="text-xs text-[#202238]">Terduga Duplikat</p>
+                      <p className="text-xs text-text-primary">Terduga Duplikat</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#FFF0F3] border border-[#E65378]/25">
-                      <p className="text-lg font-mono font-bold text-[#E65378]">{invalidCount}</p>
-                      <p className="text-xs text-[#202238]">Baris Invalid</p>
+                    <div className="p-3 rounded-xl bg-expense-soft border border-expense/25">
+                      <p className="text-lg font-mono font-bold text-expense">{invalidCount}</p>
+                      <p className="text-xs text-text-primary">Baris Invalid</p>
                     </div>
                   </div>
 
-                  <div className="border border-[#E8E9F1] rounded-xl overflow-hidden max-h-72 overflow-y-auto">
+                  <div className="border border-border rounded-xl overflow-hidden max-h-72 overflow-y-auto">
                     <table className="w-full text-left text-xs">
-                      <thead className="bg-[#F6F7FB] text-[#74778B] sticky top-0 border-b border-[#E8E9F1]">
+                      <thead className="bg-surface-muted text-text-secondary sticky top-0 border-b border-border">
                         <tr>
                           <th className="py-2.5 px-3">Pilih</th>
                           <th className="py-2.5 px-3">Tanggal</th>
@@ -405,16 +405,16 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                           <th className="py-2.5 px-3">Status</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#E8E9F1]">
+                      <tbody className="divide-y divide-border">
                         {previewRows.map((row) => (
-                          <tr key={row.rowNumber} className={!row.isValid ? 'bg-[#FFF0F3]/40' : ''}>
+                          <tr key={row.rowNumber} className={!row.isValid ? 'bg-expense-soft/40' : ''}>
                             <td className="py-2.5 px-3">
                               <input
                                 type="checkbox"
                                 checked={row.include}
                                 disabled={!row.isValid}
                                 onChange={() => handleToggleRow(row.rowNumber)}
-                                className="w-4 h-4 accent-[#6655D9]"
+                                className="w-4 h-4 accent-primary"
                                 aria-label={`Pilih baris ${row.rowNumber}`}
                               />
                             </td>
@@ -424,7 +424,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                             <td className="py-2.5 px-3 max-w-[180px] truncate">{row.description}</td>
                             <td
                               className={`py-2.5 px-3 font-mono tabular-nums text-right whitespace-nowrap ${
-                                row.type === 'income' ? 'text-[#16A779]' : 'text-[#E65378]'
+                                row.type === 'income' ? 'text-income' : 'text-expense'
                               }`}
                             >
                               {row.amount > 0
@@ -433,16 +433,16 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
                             </td>
                             <td className="py-2.5 px-3 whitespace-nowrap">
                               {!row.isValid ? (
-                                <span className="text-[#E65378] font-medium">
+                                <span className="text-expense font-medium">
                                   {row.errorReason}
                                 </span>
                               ) : row.isDuplicate ? (
-                                <span className="inline-flex items-center gap-1 text-[#E5A13A] font-medium">
+                                <span className="inline-flex items-center gap-1 text-warning font-medium">
                                   <AlertTriangle className="w-3.5 h-3.5" />
                                   Duplikat
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 text-[#16A779] font-medium">
+                                <span className="inline-flex items-center gap-1 text-income font-medium">
                                   <CheckCircle2 className="w-3.5 h-3.5" />
                                   Valid
                                 </span>
@@ -459,7 +459,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
               {errorMsg && (
                 <div
                   role="alert"
-                  className="px-3.5 py-2.5 rounded-xl bg-[#FFF0F3] border border-[#E65378]/30 text-xs font-medium text-[#E65378]"
+                  className="px-3.5 py-2.5 rounded-xl bg-expense-soft border border-expense/30 text-xs font-medium text-expense"
                 >
                   {errorMsg}
                 </div>
@@ -468,12 +468,12 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
           )}
         </div>
 
-        <div className="px-5 sm:px-6 py-4 border-t border-[#E8E9F1] flex items-center justify-between gap-3">
+        <div className="px-5 sm:px-6 py-4 border-t border-border flex items-center justify-between gap-3">
           {step > 1 ? (
             <button
               type="button"
               onClick={() => setStep(step === 3 ? 2 : 1)}
-              className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium text-[#202238] hover:bg-[#F6F7FB]"
+              className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-surface-muted"
             >
               Kembali
             </button>
@@ -481,7 +481,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
             <button
               type="button"
               onClick={handleClose}
-              className="min-h-[44px] px-4 py-2 rounded-xl border border-[#E8E9F1] text-sm font-medium text-[#202238] hover:bg-[#F6F7FB]"
+              className="min-h-[44px] px-4 py-2 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-surface-muted"
             >
               Tutup
             </button>
@@ -491,7 +491,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
             <button
               type="button"
               onClick={handleGeneratePreview}
-              className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] text-white text-sm font-medium"
+              className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark text-white text-sm font-medium"
             >
               Lanjut Pratinjau
             </button>
@@ -502,7 +502,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
               type="button"
               onClick={handleConfirmImport}
               disabled={validCount === 0}
-              className="min-h-[44px] px-5 py-2 rounded-xl bg-[#6655D9] hover:bg-[#4938B5] disabled:opacity-50 text-white text-sm font-medium"
+              className="min-h-[44px] px-5 py-2 rounded-xl bg-primary hover:bg-primary-dark disabled:opacity-50 text-white text-sm font-medium"
             >
               Impor {validCount} Transaksi
             </button>

@@ -59,7 +59,7 @@ export function AnalyticsView() {
         description="Seluruh metrik dihitung langsung dari buku besar transaksi tanpa transfer ganda."
         actions={
           <>
-            <div className="flex max-w-full flex-wrap items-center gap-1 rounded-xl border border-[#E8E9F1] bg-white p-1">
+            <div className="flex max-w-full flex-wrap items-center gap-1 rounded-xl border border-border bg-surface p-1">
               {(
                 [
                   ['7d', '7 Hari'],
@@ -75,8 +75,8 @@ export function AnalyticsView() {
                   aria-pressed={preset === id}
                   className={`min-h-[40px] px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap ${
                     preset === id
-                      ? 'bg-[#6655D9] text-white'
-                      : 'text-[#74778B] hover:text-[#202238]'
+                      ? 'bg-primary text-white'
+                      : 'text-text-secondary hover:text-text-primary'
                   }`}
                 >
                   {label}
@@ -87,9 +87,9 @@ export function AnalyticsView() {
             <button
               type="button"
               onClick={handleExportPeriodCsv}
-              className="min-h-[40px] px-3.5 py-2 rounded-xl border border-[#E8E9F1] bg-white hover:bg-[#F6F7FB] text-xs font-medium text-[#202238] inline-flex items-center gap-1.5 whitespace-nowrap"
+              className="min-h-[40px] px-3.5 py-2 rounded-xl border border-border bg-surface hover:bg-surface-muted text-xs font-medium text-text-primary inline-flex items-center gap-1.5 whitespace-nowrap"
             >
-              <Download className="w-4 h-4 text-[#6655D9]" />
+              <Download className="w-4 h-4 text-primary" />
               Ekspor Laporan CSV
             </button>
           </>
@@ -98,56 +98,56 @@ export function AnalyticsView() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-          <p className="text-xs text-[#74778B]">Total Pemasukan ({periodRange.label})</p>
-          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-[#16A779]">
+        <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+          <p className="text-xs text-text-secondary">Total Pemasukan ({periodRange.label})</p>
+          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-income">
             {formatIDR(metrics.totalIncome, { hidden })}
           </p>
         </div>
-        <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-          <p className="text-xs text-[#74778B]">Total Pengeluaran ({periodRange.label})</p>
-          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-[#E65378]">
+        <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+          <p className="text-xs text-text-secondary">Total Pengeluaran ({periodRange.label})</p>
+          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-expense">
             {formatIDR(metrics.totalExpense, { hidden })}
           </p>
         </div>
-        <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-          <p className="text-xs text-[#74778B]">Rata-Rata Pengeluaran Harian</p>
-          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-[#202238]">
+        <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+          <p className="text-xs text-text-secondary">Rata-Rata Pengeluaran Harian</p>
+          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-text-primary">
             {formatIDR(metrics.averageDailyExpense, { hidden })}
           </p>
         </div>
-        <div className="bg-white border border-[#E8E9F1] rounded-2xl p-4 sm:p-5">
-          <p className="text-xs text-[#74778B]">Rasio Arus Kas Tersisa</p>
-          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-[#202238]">
+        <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
+          <p className="text-xs text-text-secondary">Rasio Arus Kas Tersisa</p>
+          <p className="mt-1.5 text-xl font-mono font-bold tabular-nums text-text-primary">
             {savingsRatePct !== null ? `${savingsRatePct}%` : 'Belum tersedia'}
           </p>
-          <p className="mt-1 text-[11px] text-[#74778B]">
+          <p className="mt-1 text-[11px] text-text-secondary">
             (Pemasukan − Pengeluaran) ÷ Pemasukan
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <div className="lg:col-span-7 bg-white border border-[#E8E9F1] rounded-2xl p-5 sm:p-6">
+        <div className="lg:col-span-7 bg-surface border border-border rounded-2xl p-5 sm:p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-base font-semibold text-[#202238]">
+              <h2 className="text-base font-semibold text-text-primary">
                 Perbandingan 6 Bulan Terakhir
               </h2>
-              <p className="text-xs text-[#74778B] mt-0.5">
+              <p className="text-xs text-text-secondary mt-0.5">
                 Pemasukan dan pengeluaran per bulan (tidak termasuk transfer internal)
               </p>
             </div>
-            <BarChart3 className="w-5 h-5 text-[#6655D9]" />
+            <BarChart3 className="w-5 h-5 text-primary" />
           </div>
           <MonthlyComparisonChart series={monthlySeries} hidden={hidden} />
         </div>
 
-        <div className="lg:col-span-5 bg-white border border-[#E8E9F1] rounded-2xl p-5 sm:p-6">
-          <h2 className="text-base font-semibold text-[#202238] mb-1">
+        <div className="lg:col-span-5 bg-surface border border-border rounded-2xl p-5 sm:p-6">
+          <h2 className="text-base font-semibold text-text-primary mb-1">
             Distribusi Pengeluaran Kategori
           </h2>
-          <p className="text-xs text-[#74778B] mb-4">{periodRange.label}</p>
+          <p className="text-xs text-text-secondary mb-4">{periodRange.label}</p>
           <CategoryBreakdownList
             items={metrics.categoryBreakdown}
             totalExpense={metrics.totalExpense}
@@ -157,13 +157,13 @@ export function AnalyticsView() {
       </div>
 
       {/* Educational Cashflow Note */}
-      <div className="bg-white border border-[#E8E9F1] rounded-2xl p-5 flex items-start gap-3">
-        <Info className="w-5 h-5 text-[#3989D8] shrink-0 mt-0.5" />
-        <div className="text-xs sm:text-sm text-[#74778B] space-y-1">
-          <p className="font-semibold text-[#202238]">Catatan Pembukuan Finora</p>
+      <div className="bg-surface border border-border rounded-2xl p-5 flex items-start gap-3">
+        <Info className="w-5 h-5 text-info shrink-0 mt-0.5" />
+        <div className="text-xs sm:text-sm text-text-secondary space-y-1">
+          <p className="font-semibold text-text-primary">Catatan Pembukuan Finora</p>
           <p>
             Total saldo aktif Anda saat ini sebesar{' '}
-            <span className="font-mono font-semibold text-[#202238]">
+            <span className="font-mono font-semibold text-text-primary">
               {formatIDR(totalBalance, { hidden })}
             </span>
             . Transfer internal pada periode ini ({formatIDR(metrics.totalTransfer, { hidden })})

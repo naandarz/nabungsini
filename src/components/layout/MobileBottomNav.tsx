@@ -21,12 +21,12 @@ export function MobileBottomNav({
 
   const tabClass = (isActive: boolean) =>
     `flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-lg transition-colors ${
-      isActive ? 'text-[#6655D9]' : 'text-[#74778B]'
+      isActive ? 'text-primary' : 'text-text-secondary'
     }`;
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E8E9F1] bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
       aria-label="Navigasi utama mobile"
     >
       <div className="mx-auto grid h-16 max-w-lg grid-cols-5 items-center px-1">
@@ -54,7 +54,7 @@ export function MobileBottomNav({
           <button
             type="button"
             onClick={() => onOpenNewTransaction('expense')}
-            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6655D9] text-white shadow-md transition-transform hover:bg-[#4938B5] active:scale-95"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-md transition-transform hover:bg-primary-dark active:scale-95"
             aria-label="Catat transaksi baru"
           >
             <Plus className="h-6 w-6" />
