@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-primary: #6655D9;
+  --color-primary-dark: #4938B5;
+  --color-primary-soft: #F0EDFF;
+  --color-background: #F6F7FB;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #202238;
+  --color-text-secondary: #74778B;
+  --color-border: #E8E9F1;
+  --color-income: #16A779;
+  --color-income-soft: #E8F8F1;
+  --color-expense: #E65378;
+  --color-expense-soft: #FFF0F3;
+  --color-warning: #E5A13A;
+  --color-info: #3989D8;
+  --color-neutral: #8B8EA3;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Keyboard-only focus ring so mouse/touch users keep the clean look. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Re-enable native scrolling for nested scroll areas after scroll-lock. */
+  body {
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer components {
+  /* Skip link: hidden until it receives keyboard focus. */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-150%);
+    border-radius: 0.75rem;
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 10px 25px -5px rgb(32 34 56 / 0.35);
+    transition: transform 0.15s ease-out;
+  }
+
+  .skip-link:focus-visible,
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  /* Mount animation shared by every dialog / sheet / drawer panel. */
+  .modal-panel {
+    animation: modal-enter 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-drawer-panel {
+    animation: drawer-enter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes drawer-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 767px) {
+  /* Bottom sheets rise from the bottom edge. */
+  .modal-panel {
+    animation-name: sheet-enter;
+  }
+
+  @keyframes sheet-enter {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .nav-drawer-panel {
+    animation-name: sheet-enter;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

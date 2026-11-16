@@ -1,0 +1,6 @@
+{
+  "name": "Finora — Smart Personal Finance",
+  "description": "Aplikasi web pengelolaan keuangan pribadi yang responsif untuk mencatat transaksi, mengelola rekening dan e-wallet, anggaran, target tabungan, impor/ekspor CSV, dan analisis AI Financial Assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
