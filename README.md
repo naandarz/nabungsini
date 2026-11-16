@@ -3,6 +3,8 @@
 Aplikasi keuangan pribadi berbahasa Indonesia: saldo rekening & e-wallet, pencatatan
 transaksi, anggaran, target tabungan, impor mutasi CSV, analisis, dan Asisten AI.
 
+**Situs live:** https://naandarz.github.io/nabungsini/
+
 Dibangun dengan React 19 + Vite 8 + Tailwind CSS 4 (TypeScript).
 
 ## Menjalankan secara lokal
