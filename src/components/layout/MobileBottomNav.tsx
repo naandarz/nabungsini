@@ -1,4 +1,5 @@
-import { ArrowLeftRight, BarChart3, Home, LayoutGrid, Plus } from 'lucide-react';
+import { ArrowLeftRight, BarChart3, Home, LayoutGrid, Plus, type LucideIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 import type { TransactionType } from '../../types/finance';
 import type { NavTabId } from '../../types/navigation';
 
@@ -19,10 +20,34 @@ export function MobileBottomNav({
 }: MobileBottomNavProps) {
   const menuActive = SECONDARY_TABS.includes(activeTab);
 
-  const tabClass = (isActive: boolean) =>
-    `flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-lg transition-colors ${
-      isActive ? 'text-primary' : 'text-text-secondary'
-    }`;
+  const renderTab = (tab: NavTabId, label: string, Icon: LucideIcon, onClick: () => void, isActive: boolean) => (
+    <button
+      key={tab}
+      type="button"
+      onClick={onClick}
+      className={`relative flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-lg transition-colors ${
+        isActive ? 'text-primary' : 'text-text-secondary'
+      }`}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      {isActive && (
+        <motion.span
+          layoutId="mobile-nav-pill"
+          transition={{ type: 'spring', stiffness: 420, damping: 34, mass: 0.7 }}
+          className="absolute inset-x-1.5 top-1 h-8 rounded-xl bg-primary-soft"
+          aria-hidden="true"
+        />
+      )}
+      <motion.span
+        className="relative z-10 flex flex-col items-center gap-0.5"
+        animate={{ scale: isActive ? 1 : 0.94 }}
+        transition={{ type: 'spring', stiffness: 420, damping: 26 }}
+      >
+        <Icon className="h-5 w-5" />
+        <span className="text-[10px] font-medium">{label}</span>
+      </motion.span>
+    </button>
+  );
 
   return (
     <nav
@@ -30,56 +55,62 @@ export function MobileBottomNav({
       aria-label="Navigasi utama mobile"
     >
       <div className="mx-auto grid h-16 max-w-lg grid-cols-5 items-center px-1">
-        <button
-          type="button"
-          onClick={() => onNavigate('dashboard')}
-          className={tabClass(activeTab === 'dashboard')}
-          aria-current={activeTab === 'dashboard' ? 'page' : undefined}
-        >
-          <Home className="h-5 w-5" />
-          <span className="text-[10px] font-medium">Beranda</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onNavigate('transactions')}
-          className={tabClass(activeTab === 'transactions')}
-          aria-current={activeTab === 'transactions' ? 'page' : undefined}
-        >
-          <ArrowLeftRight className="h-5 w-5" />
-          <span className="text-[10px] font-medium">Transaksi</span>
-        </button>
+        {renderTab('dashboard', 'Beranda', Home, () => onNavigate('dashboard'), activeTab === 'dashboard')}
+        {renderTab(
+          'transactions',
+          'Transaksi',
+          ArrowLeftRight,
+          () => onNavigate('transactions'),
+          activeTab === 'transactions',
+        )}
 
         <div className="flex items-center justify-center">
-          <button
+          <motion.button
             type="button"
             onClick={() => onOpenNewTransaction('expense')}
-            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-md transition-transform hover:bg-primary-dark active:scale-95"
+            whileTap={{ scale: 0.88 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 24 }}
+            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-md hover:bg-primary-dark"
             aria-label="Catat transaksi baru"
           >
             <Plus className="h-6 w-6" />
-          </button>
+          </motion.button>
         </div>
 
-        <button
-          type="button"
-          onClick={() => onNavigate('analytics')}
-          className={tabClass(activeTab === 'analytics')}
-          aria-current={activeTab === 'analytics' ? 'page' : undefined}
-        >
-          <BarChart3 className="h-5 w-5" />
-          <span className="text-[10px] font-medium">Analisis</span>
-        </button>
+        {renderTab(
+          'analytics',
+          'Analisis',
+          BarChart3,
+          () => onNavigate('analytics'),
+          activeTab === 'analytics',
+        )}
 
         <button
           type="button"
           onClick={onOpenMenu}
-          className={tabClass(menuActive)}
+          className={`relative flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-lg transition-colors ${
+            menuActive ? 'text-primary' : 'text-text-secondary'
+          }`}
           aria-current={menuActive ? 'page' : undefined}
           aria-label="Buka semua menu"
         >
-          <LayoutGrid className="h-5 w-5" />
-          <span className="text-[10px] font-medium">Menu</span>
+          {menuActive && (
+            <motion.span
+              layoutId="mobile-nav-pill"
+              transition={{ type: 'spring', stiffness: 420, damping: 34, mass: 0.7 }}
+              className="absolute inset-x-1.5 top-1 h-8 rounded-xl bg-primary-soft"
+              aria-hidden="true"
+            />
+          )}
+          <motion.span
+            className="relative z-10 flex flex-col items-center gap-0.5"
+            animate={{ scale: menuActive ? 1 : 0.94 }}
+            transition={{ type: 'spring', stiffness: 420, damping: 26 }}
+          >
+            <LayoutGrid className="h-5 w-5" />
+            <span className="text-[10px] font-medium">Menu</span>
+          </motion.span>
         </button>
       </div>
     </nav>

@@ -27,6 +27,7 @@ import { formatDateID, formatIDR, getPeriodRange, toMonthKey } from '../utils/fo
 import { CashflowBarChart, CategoryBreakdownList } from '../components/ui/Charts';
 import { EmptyState } from '../components/ui/EmptyState';
 import { PageHeader } from '../components/ui/PageHeader';
+import { AnimatedMoney } from '../components/ui/AnimatedMoney';
 
 interface DashboardViewProps {
   onNavigate: (tab: NavTabId) => void;
@@ -264,7 +265,7 @@ export function DashboardView({
                   totalBalance < 0 ? 'text-expense' : 'text-text-primary'
                 }`}
               >
-                {formatIDR(totalBalance, { hidden })}
+                <AnimatedMoney value={totalBalance} hidden={hidden} />
               </p>
             </div>
             <button
@@ -419,7 +420,7 @@ export function DashboardView({
         <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
           <p className="text-xs font-medium text-text-secondary">Pemasukan Periode Ini</p>
           <p className="mt-1.5 text-xl font-mono font-semibold tabular-nums text-income">
-            {hidden ? 'Rp•••••••' : `+${formatIDR(metrics.totalIncome)}`}
+            <AnimatedMoney value={metrics.totalIncome} hidden={hidden} signed type="income" />
           </p>
           <p className="mt-1 text-xs text-text-secondary">
             {metrics.incomeChangePct !== null
@@ -431,7 +432,7 @@ export function DashboardView({
         <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
           <p className="text-xs font-medium text-text-secondary">Pengeluaran Periode Ini</p>
           <p className="mt-1.5 text-xl font-mono font-semibold tabular-nums text-expense">
-            {hidden ? 'Rp•••••••' : `−${formatIDR(metrics.totalExpense)}`}
+            <AnimatedMoney value={metrics.totalExpense} hidden={hidden} signed type="expense" />
           </p>
           <p className="mt-1 text-xs text-text-secondary">
             {metrics.expenseChangePct !== null
@@ -447,7 +448,7 @@ export function DashboardView({
               metrics.netCashflow >= 0 ? 'text-text-primary' : 'text-expense'
             }`}
           >
-            {formatIDR(metrics.netCashflow, { hidden })}
+            <AnimatedMoney value={metrics.netCashflow} hidden={hidden} />
           </p>
           <p className="mt-1 text-xs text-text-secondary">Pemasukan dikurangi pengeluaran</p>
         </div>
@@ -455,7 +456,7 @@ export function DashboardView({
         <div className="bg-surface border border-border rounded-2xl p-4 sm:p-5">
           <p className="text-xs font-medium text-text-secondary">Transfer Internal</p>
           <p className="mt-1.5 text-xl font-mono font-semibold tabular-nums text-info">
-            {formatIDR(metrics.totalTransfer, { hidden })}
+            <AnimatedMoney value={metrics.totalTransfer} hidden={hidden} />
           </p>
           <p className="mt-1 text-xs text-text-secondary">Tidak dihitung sebagai pengeluaran</p>
         </div>
@@ -726,7 +727,7 @@ export function DashboardView({
                     </div>
                     <div className="h-2 rounded-full bg-surface-muted overflow-hidden">
                       <div
-                        className={`h-full rounded-full ${
+                        className={`fill-grow h-full rounded-full ${
                           b.status === 'melebihi'
                             ? 'bg-expense'
                             : b.status === 'peringatan'
@@ -770,7 +771,7 @@ export function DashboardView({
                     </div>
                     <div className="h-2 rounded-full bg-surface-muted overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-income"
+                        className="fill-grow h-full rounded-full bg-income"
                         style={{ width: `${item.percentage}%` }}
                       />
                     </div>

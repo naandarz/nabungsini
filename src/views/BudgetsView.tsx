@@ -192,7 +192,7 @@ export function BudgetsView() {
 
                 <div className="h-2.5 rounded-full bg-surface-muted overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-200 ${
+                    className={`fill-grow h-full rounded-full transition-all duration-200 ${
                       item.status === 'melebihi'
                         ? 'bg-expense'
                         : item.status === 'peringatan'

@@ -12,6 +12,9 @@ import {
 } from '../../utils/csvEngine';
 import { formatDateID, formatIDR } from '../../utils/formatters';
 import { useDialogA11y } from '../../hooks/useDialogA11y';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
+import { SheetHandle } from '../ui/SheetHandle';
+import { motion } from 'motion/react';
 
 interface CsvImportModalProps {
   open: boolean;
@@ -45,6 +48,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
   );
 
   const dialogRef = useDialogA11y<HTMLDivElement>({ open, onClose });
+  const drag = useSheetDrag(onClose);
 
   if (!open) return null;
 
@@ -155,7 +159,16 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
       aria-modal="true"
       aria-labelledby="csv-import-title"
     >
-      <div className="modal-panel w-full md:max-w-3xl bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col">
+      <motion.div
+        drag={drag.enabled ? 'y' : false}
+        dragListener={false}
+        dragControls={drag.controls}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 0.5 }}
+        onDragEnd={drag.onDragEnd}
+        className="modal-panel w-full md:max-w-3xl bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col"
+      >
+        <SheetHandle onPointerDown={drag.handlePointerDown} />
         <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border">
           <div>
             <h2 id="csv-import-title" className="text-lg font-semibold text-text-primary">
@@ -508,7 +521,7 @@ export function CsvImportModal({ open, onClose }: CsvImportModalProps) {
             </button>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

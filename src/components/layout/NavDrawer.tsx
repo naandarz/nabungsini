@@ -1,5 +1,7 @@
 import { FileSpreadsheet, X } from 'lucide-react';
+import { motion } from 'motion/react';
 import { useDialogA11y } from '../../hooks/useDialogA11y';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import { NAV_GROUPS, NAV_ITEM_BY_ID, type NavTabId } from '../../types/navigation';
 
 interface NavDrawerProps {
@@ -20,6 +22,7 @@ export function NavDrawer({
   onOpenCsvImport,
 }: NavDrawerProps) {
   const panelRef = useDialogA11y<HTMLDivElement>({ open, onClose });
+  const drag = useSheetDrag(onClose);
 
   if (!open) return null;
 
@@ -28,16 +31,27 @@ export function NavDrawer({
       className="fixed inset-0 z-50 flex items-end bg-overlay/45 backdrop-blur-[1px] md:items-stretch"
       onClick={onClose}
     >
-      <div
+      <motion.div
         ref={panelRef}
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Menu navigasi"
+        drag={drag.enabled ? 'y' : false}
+        dragListener={false}
+        dragControls={drag.controls}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 0.5 }}
+        onDragEnd={drag.onDragEnd}
         onClick={(event) => event.stopPropagation()}
         className="nav-drawer-panel flex h-[85dvh] w-full flex-col rounded-t-3xl border border-border bg-surface shadow-2xl focus:outline-none md:h-full md:w-80 md:rounded-none"
       >
-        <div className="mx-auto mt-2.5 h-1.5 w-10 rounded-full bg-border md:hidden" />
+        <div
+          onPointerDown={drag.handlePointerDown}
+          role="presentation"
+          aria-label="Tarik ke bawah untuk menutup"
+          className="mx-auto mt-2.5 h-1.5 w-10 shrink-0 touch-none cursor-grab rounded-full bg-border active:cursor-grabbing md:hidden"
+        />
 
         <div className="flex items-center justify-between border-b border-border px-4 py-4">
           <div className="flex items-center gap-2.5">
@@ -136,7 +150,7 @@ export function NavDrawer({
             <span>Impor Mutasi CSV</span>
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

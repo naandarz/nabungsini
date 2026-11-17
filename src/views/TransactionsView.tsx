@@ -4,6 +4,7 @@ import {
   ArrowLeftRight,
   ArrowUpRight,
   Download,
+  Eye,
   FileSpreadsheet,
   Paperclip,
   Plus,
@@ -17,6 +18,7 @@ import { filterTransactions } from '../utils/financeEngine';
 import { formatDateID, formatIDR, getTransactionTypeLabel } from '../utils/formatters';
 import { EmptyState } from '../components/ui/EmptyState';
 import { PageHeader } from '../components/ui/PageHeader';
+import { SwipeRow } from '../components/ui/SwipeRow';
 
 interface TransactionsViewProps {
   onOpenNewTx: (type: TransactionType) => void;
@@ -416,12 +418,17 @@ export function TransactionsView({
                 : undefined;
 
               return (
-                <button
+                <SwipeRow
                   key={tx.id}
-                  type="button"
-                  onClick={() => onSelectTransaction(tx)}
-                  className="w-full min-h-[64px] px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-surface-muted transition-colors"
+                  actionLabel="Detail"
+                  actionIcon={<Eye className="h-4 w-4" />}
+                  onAction={() => onSelectTransaction(tx)}
                 >
+                  <button
+                    type="button"
+                    onClick={() => onSelectTransaction(tx)}
+                    className="w-full min-h-[64px] px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-surface-muted transition-colors"
+                  >
                   <div className="flex items-center gap-3 min-w-0">
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
@@ -477,6 +484,7 @@ export function TransactionsView({
                       : formatIDR(tx.amount, { signed: true, type: tx.type, hidden })}
                   </span>
                 </button>
+                </SwipeRow>
               );
             })}
           </div>

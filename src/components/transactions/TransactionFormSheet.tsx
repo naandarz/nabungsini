@@ -20,6 +20,9 @@ import {
 } from '../../utils/attachmentStorage';
 import { formatIDR, generateFinoraTxId, toLocalDateTimeInput } from '../../utils/formatters';
 import { useDialogA11y } from '../../hooks/useDialogA11y';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
+import { SheetHandle } from '../ui/SheetHandle';
+import { motion } from 'motion/react';
 
 interface TransactionFormSheetProps {
   open: boolean;
@@ -130,6 +133,7 @@ export function TransactionFormSheet({
   const willBeNegative = projectedBalance !== null && projectedBalance < 0;
 
   const dialogRef = useDialogA11y<HTMLDivElement>({ open, onClose });
+  const drag = useSheetDrag(onClose);
 
   if (!open) return null;
 
@@ -227,11 +231,16 @@ export function TransactionFormSheet({
       aria-modal="true"
       aria-labelledby="tx-form-title"
     >
-      <div className="modal-panel w-full md:max-w-xl bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col">
-        {/* Grab handle on mobile */}
-        <div className="md:hidden pt-3 pb-1 flex justify-center">
-          <div className="w-10 h-1.5 rounded-full bg-border" />
-        </div>
+      <motion.div
+        drag={drag.enabled ? 'y' : false}
+        dragListener={false}
+        dragControls={drag.controls}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 0.5 }}
+        onDragEnd={drag.onDragEnd}
+        className="modal-panel w-full md:max-w-xl bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] flex flex-col"
+      >
+        <SheetHandle onPointerDown={drag.handlePointerDown} />
 
         <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border">
           <div>
@@ -599,7 +608,7 @@ export function TransactionFormSheet({
             </div>
           </form>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

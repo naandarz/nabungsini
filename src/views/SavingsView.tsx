@@ -144,7 +144,7 @@ export function SavingsView() {
                     </div>
                     <div className="mt-2 h-2.5 rounded-full bg-surface-muted overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-income transition-all duration-200"
+                        className="fill-grow h-full rounded-full bg-income transition-all duration-200"
                         style={{ width: `${item.percentage}%` }}
                       />
                     </div>

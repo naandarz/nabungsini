@@ -72,11 +72,11 @@ export function CashflowBarChart({ points, periodLabel, hidden = false }: Cashfl
             >
               <div className="w-full h-full flex items-end justify-center gap-0.5 sm:gap-1 pb-1">
                 <div
-                  className="w-2 sm:w-3 rounded-t bg-income transition-all duration-150"
+                  className="bar-grow w-2 sm:w-3 rounded-t bg-income transition-all duration-150"
                   style={{ height: `${incPct}%` }}
                 />
                 <div
-                  className="w-2 sm:w-3 rounded-t bg-expense transition-all duration-150"
+                  className="bar-grow w-2 sm:w-3 rounded-t bg-expense transition-all duration-150"
                   style={{ height: `${expPct}%` }}
                 />
               </div>
@@ -155,12 +155,12 @@ export function MonthlyComparisonChart({ series, hidden = false }: MonthlyCompar
             >
               <div className="w-full h-full flex items-end justify-center gap-1.5 pb-1">
                 <div
-                  className="w-3 sm:w-5 rounded-t-md bg-income transition-all duration-150"
+                  className="bar-grow w-3 sm:w-5 rounded-t-md bg-income transition-all duration-150"
                   style={{ height: `${incPct}%` }}
                   title={`Pemasukan: ${formatCompactIDR(item.income)}`}
                 />
                 <div
-                  className="w-3 sm:w-5 rounded-t-md bg-expense transition-all duration-150"
+                  className="bar-grow w-3 sm:w-5 rounded-t-md bg-expense transition-all duration-150"
                   style={{ height: `${expPct}%` }}
                   title={`Pengeluaran: ${formatCompactIDR(item.expense)}`}
                 />
@@ -221,7 +221,7 @@ export function CategoryBreakdownList({
           </div>
           <div className="h-2 w-full rounded-full bg-surface-muted overflow-hidden">
             <div
-              className="h-full rounded-full transition-all duration-200"
+              className="fill-grow h-full rounded-full transition-all duration-200"
               style={{
                 width: `${totalExpense > 0 ? Math.max(3, item.percentage) : 0}%`,
                 backgroundColor: item.color,

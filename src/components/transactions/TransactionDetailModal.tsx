@@ -15,6 +15,9 @@ import { getAttachmentsByIds, StoredAttachment } from '../../utils/attachmentSto
 import { formatDateID, formatIDR, getTransactionTypeLabel } from '../../utils/formatters';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { useDialogA11y } from '../../hooks/useDialogA11y';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
+import { SheetHandle } from '../ui/SheetHandle';
+import { motion } from 'motion/react';
 
 interface TransactionDetailModalProps {
   transaction: Transaction | null;
@@ -41,6 +44,7 @@ export function TransactionDetailModal({
     open: previewAttachment !== null,
     onClose: () => setPreviewAttachment(null),
   });
+  const drag = useSheetDrag(onClose);
 
   useEffect(() => {
     if (!transaction) {
@@ -97,7 +101,16 @@ export function TransactionDetailModal({
         aria-modal="true"
         aria-labelledby="tx-detail-title"
       >
-        <div className="modal-panel w-full md:max-w-lg bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[90dvh] flex flex-col">
+        <motion.div
+          drag={drag.enabled ? 'y' : false}
+          dragListener={false}
+          dragControls={drag.controls}
+          dragConstraints={{ top: 0, bottom: 0 }}
+          dragElastic={{ top: 0, bottom: 0.5 }}
+          onDragEnd={drag.onDragEnd}
+          className="modal-panel w-full md:max-w-lg bg-surface border border-border rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[90dvh] flex flex-col"
+        >
+          <SheetHandle onPointerDown={drag.handlePointerDown} />
           <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border">
             <div>
               <h2 id="tx-detail-title" className="text-base font-semibold text-text-primary">
@@ -280,7 +293,7 @@ export function TransactionDetailModal({
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Attachment Lightbox */}

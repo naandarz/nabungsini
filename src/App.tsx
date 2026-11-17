@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { FinanceProvider, useFinance } from './context/FinanceContext';
 import { Transaction, TransactionType } from './types/finance';
 import { useAppRoute } from './hooks/useAppRoute';
@@ -33,6 +34,7 @@ function FinoraAppShell() {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
 
   const mainRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
 
   const openNewTransaction = (type: TransactionType = 'expense') => {
     setEditingTransaction(null);
@@ -84,27 +86,38 @@ function FinoraAppShell() {
           tabIndex={-1}
           className="mx-auto w-full max-w-[1280px] flex-1 px-4 py-5 pb-[calc(5.5rem+env(safe-area-inset-bottom))] focus:outline-none sm:px-6 sm:py-6 md:pb-8"
         >
-          {activeTab === 'dashboard' && (
-            <DashboardView
-              onNavigate={handleNavigate}
-              onOpenNewTx={openNewTransaction}
-              onOpenCsvImport={openCsvImport}
-              onSelectTransaction={setSelectedTransaction}
-            />
-          )}
-          {activeTab === 'transactions' && (
-            <TransactionsView
-              onOpenNewTx={openNewTransaction}
-              onOpenCsvImport={openCsvImport}
-              onSelectTransaction={setSelectedTransaction}
-            />
-          )}
-          {activeTab === 'accounts' && <AccountsView />}
-          {activeTab === 'budgets' && <BudgetsView />}
-          {activeTab === 'savings' && <SavingsView />}
-          {activeTab === 'analytics' && <AnalyticsView />}
-          {activeTab === 'ai' && <AiAssistantView />}
-          {activeTab === 'settings' && <SettingsView />}
+          <motion.div
+            key={activeTab}
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { duration: 0.24, ease: [0.16, 1, 0.3, 1] }
+            }
+          >
+            {activeTab === 'dashboard' && (
+              <DashboardView
+                onNavigate={handleNavigate}
+                onOpenNewTx={openNewTransaction}
+                onOpenCsvImport={openCsvImport}
+                onSelectTransaction={setSelectedTransaction}
+              />
+            )}
+            {activeTab === 'transactions' && (
+              <TransactionsView
+                onOpenNewTx={openNewTransaction}
+                onOpenCsvImport={openCsvImport}
+                onSelectTransaction={setSelectedTransaction}
+              />
+            )}
+            {activeTab === 'accounts' && <AccountsView />}
+            {activeTab === 'budgets' && <BudgetsView />}
+            {activeTab === 'savings' && <SavingsView />}
+            {activeTab === 'analytics' && <AnalyticsView />}
+            {activeTab === 'ai' && <AiAssistantView />}
+            {activeTab === 'settings' && <SettingsView />}
+          </motion.div>
         </main>
       </div>
 
